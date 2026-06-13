@@ -24,17 +24,29 @@ class AccountUserSeeder extends Seeder
             'email_verified_at' => now(),
         ]);
 
-        // Create Agent
-        User::create([
-            'name' => 'Agent User',
-            'email' => 'agent@londonabd.com',
-            'phone' => '01812345678',
-            'password' => Hash::make('password'),
-            'role' => 'agent',
-            'commission_rate' => 10.0,
-            'referral_code' => 'test',
-            'email_verified_at' => now(),
-        ]);
+        // Create the commission user hierarchy (E.D → G.M → AGM → Manager → Ast. Manager).
+        // Each picks the immediate upline above it; percentages come from the chart defaults.
+        // Login: <type>@londonabd.com  /  password
+        $phone = 18000000001;
+        $parent = null;
+
+        foreach (config('commission.types') as $type => $meta) {
+            $parent = User::create([
+                'name' => $meta['label'] . ' User',
+                'email' => $type . '@londonabd.com',
+                'phone' => '0' . $phone++,
+                'password' => Hash::make('password'),
+                'role' => 'agent',
+                'status' => 'active',
+                'commission_type' => $type,
+                'parent_id' => $parent?->id,
+                'booking_pct' => $meta['defaults']['booking'],
+                'down_pct' => $meta['defaults']['down'],
+                'instalment_pct' => $meta['defaults']['instalment'],
+                'referral_code' => strtoupper($type),
+                'email_verified_at' => now(),
+            ]);
+        }
 
         // Create Regular User/Customer
         User::create([

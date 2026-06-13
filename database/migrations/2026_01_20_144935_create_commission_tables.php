@@ -11,6 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // Per-user lump-sum payouts against the accrued commission balance.
+        Schema::create('commission_payouts', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            // Optional reference to a booking (legacy per-booking payouts).
+            $table->foreignId('booking_id')->nullable()->constrained()->onDelete('cascade');
+            $table->decimal('amount', 12, 2);
+            $table->text('payment_note')->nullable();
+            $table->timestamps();
+        });
+
+        // Commission ledger: one row per beneficiary per customer payment,
+        // snapshotting the chain and percentages at the time of the payment.
         Schema::create('commission_earnings', function (Blueprint $table) {
             $table->id();
             $table->foreignId('payment_id')->constrained()->cascadeOnDelete();
@@ -37,5 +50,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('commission_earnings');
+        Schema::dropIfExists('commission_payouts');
     }
 };

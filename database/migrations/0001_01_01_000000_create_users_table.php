@@ -32,12 +32,21 @@ return new class extends Migration
             $table->string('nominee_photo')->nullable();
             $table->string('nominee_relation')->nullable();
             $table->enum('role', ['admin', 'agent', 'user'])->default('user');
+            // Commission hierarchy: ed | gm | agm | manager | ast_manager (see config/commission.php)
+            $table->string('commission_type', 20)->nullable()->index();
+            $table->unsignedBigInteger('parent_id')->nullable();
             $table->json('permissions')->nullable();
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->decimal('commission_rate', 5, 2)->nullable();
+            // Per-user override percentages; defaults from config('commission.types.*.defaults')
+            $table->decimal('booking_pct', 5, 2)->nullable();
+            $table->decimal('down_pct', 5, 2)->nullable();
+            $table->decimal('instalment_pct', 5, 2)->nullable();
             $table->string('referral_code')->unique()->nullable();
             $table->rememberToken();
             $table->timestamps();
+
+            $table->foreign('parent_id')->references('id')->on('users')->nullOnDelete();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

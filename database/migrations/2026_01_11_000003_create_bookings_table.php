@@ -28,6 +28,8 @@ return new class extends Migration
             $table->timestamp('agent_changed_at')->nullable();
             $table->decimal('agent_commission_base_paid', 15, 2)->nullable();
             $table->decimal('agent_commission', 5, 2)->nullable();
+            // 'hierarchy' = commission chart distribution, 'flat' = legacy single-rate
+            $table->string('commission_scheme', 20)->default('hierarchy')->index();
             $table->json('owners')->nullable();
             $table->timestamps();
         });
