@@ -65,6 +65,8 @@
                     <h1 class="text-lg font-bold text-primary uppercase">
                         @if($payment->payment_type == 'Booking Payment')
                             Booking Receipt
+                        @elseif($payment->payment_type == 'Down Payment')
+                            Down Payment Receipt
                         @elseif($payment->payment_type == 'Part Of Installment')
                             Part Payment Receipt
                         @else

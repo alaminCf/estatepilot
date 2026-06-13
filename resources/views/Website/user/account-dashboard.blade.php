@@ -9,6 +9,32 @@
         <p class="text-gray-600">Welcome back, {{ auth()->user()->name }}! Here's your account overview.</p>
     </div>
 
+    <!-- Next Installment Date Banner -->
+    @if($stats['next_installment_date'])
+    <div class="bg-gradient-to-r {{ $stats['next_installment_date']->isPast() ? 'from-red-50 to-orange-50 border-red-200' : 'from-blue-50 to-indigo-50 border-blue-200' }} border rounded-xl shadow-sm p-5 mb-8">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 {{ $stats['next_installment_date']->isPast() ? 'bg-red-600' : 'bg-blue-600' }} rounded-lg flex items-center justify-center">
+                    <i class="fas fa-calendar-alt text-white text-lg"></i>
+                </div>
+                <div>
+                    <p class="text-sm font-medium text-gray-600">Next Installment Due</p>
+                    <h3 class="text-xl font-bold {{ $stats['next_installment_date']->isPast() ? 'text-red-600' : 'text-blue-700' }}">
+                        {{ $stats['next_installment_date']->format('d M, Y') }}
+                    </h3>
+                </div>
+            </div>
+            @if($stats['next_installment_date']->isPast())
+                <span class="inline-flex items-center gap-1 px-3 py-1.5 bg-red-100 text-red-700 rounded-full text-xs font-semibold">
+                    <i class="fas fa-exclamation-circle"></i> Overdue
+                </span>
+            @else
+                <span class="text-sm text-gray-500">{{ $stats['next_installment_date']->diffForHumans() }}</span>
+            @endif
+        </div>
+    </div>
+    @endif
+
     <!-- Stats Cards -->
     <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         <!-- Total Bookings -->
@@ -111,31 +137,7 @@
         </div>
     </div>
 
-    <!-- Next Installment Date Banner -->
-    @if($stats['next_installment_date'])
-    <div class="bg-gradient-to-r {{ $stats['next_installment_date']->isPast() ? 'from-red-50 to-orange-50 border-red-200' : 'from-blue-50 to-indigo-50 border-blue-200' }} border rounded-xl shadow-sm p-5 mb-8">
-        <div class="flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 {{ $stats['next_installment_date']->isPast() ? 'bg-red-600' : 'bg-blue-600' }} rounded-lg flex items-center justify-center">
-                    <i class="fas fa-calendar-alt text-white text-lg"></i>
-                </div>
-                <div>
-                    <p class="text-sm font-medium text-gray-600">Next Installment Due</p>
-                    <h3 class="text-xl font-bold {{ $stats['next_installment_date']->isPast() ? 'text-red-600' : 'text-blue-700' }}">
-                        {{ $stats['next_installment_date']->format('d M, Y') }}
-                    </h3>
-                </div>
-            </div>
-            @if($stats['next_installment_date']->isPast())
-                <span class="inline-flex items-center gap-1 px-3 py-1.5 bg-red-100 text-red-700 rounded-full text-xs font-semibold">
-                    <i class="fas fa-exclamation-circle"></i> Overdue
-                </span>
-            @else
-                <span class="text-sm text-gray-500">{{ $stats['next_installment_date']->diffForHumans() }}</span>
-            @endif
-        </div>
-    </div>
-    @endif
+    
 
     <!-- Recent Bookings -->
     <div>

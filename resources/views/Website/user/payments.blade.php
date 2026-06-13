@@ -84,6 +84,7 @@
                                 <td class="px-6 py-4">
                                     <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold
                                         @if($payment->payment_type === 'Booking Payment') bg-blue-100 text-blue-700
+                                        @elseif($payment->payment_type === 'Down Payment') bg-green-100 text-green-700
                                         @elseif($payment->payment_type === 'Installment Payment') bg-purple-100 text-purple-700
                                         @elseif($payment->payment_type === 'Part Of Installment') bg-amber-100 text-amber-700
                                         @else bg-gray-100 text-gray-700

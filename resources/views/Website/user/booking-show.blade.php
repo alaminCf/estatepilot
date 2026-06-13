@@ -216,6 +216,8 @@
                                         <td class="px-4 py-3">
                                             @if($p->payment_type == 'Booking Payment')
                                                 <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-100 text-blue-700">{{ $p->payment_type }}</span>
+                                            @elseif($p->payment_type == 'Down Payment')
+                                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-green-100 text-green-700">{{ $p->payment_type }}</span>
                                             @elseif($p->payment_type == 'Installment Payment')
                                                 <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-100 text-amber-700">{{ $p->payment_type }}</span>
                                             @else

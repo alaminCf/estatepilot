@@ -32,6 +32,7 @@
                     <select name="payment_type" class="form-select">
                         <option value="">All Types</option>
                         <option value="Booking Payment">Booking Payment</option>
+                        <option value="Down Payment">Down Payment</option>
                         <option value="Installment Payment">Installment Payment</option>
                         <option value="Part Of Installment">Part Of Installment</option>
                     </select>

@@ -3,6 +3,9 @@
 @section('title', 'Commission User Panel - London Abason')
 
 @section('content')
+    @php
+        $commissionBalance = (new \App\Services\CommissionService())->balanceFor(auth()->user());
+    @endphp
     <!-- Account Container -->
     <div class="pt-20 min-h-screen bg-gray-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -25,9 +28,14 @@
                                     @endif
                                 </div>
                             </div>
-                            <div class="mt-4 bg-white/10 rounded-lg px-3 py-2">
-                                <p class="text-xs text-purple-100">Referral Code</p>
-                                <p class="font-bold text-lg tracking-wider">{{ auth()->user()->referral_code }}</p>
+                            <div class="mt-4 bg-white/10 rounded-lg px-3 py-2 flex items-center justify-between gap-3">
+                                <div class="min-w-0">
+                                    <p class="text-xs text-purple-100">Your Balance</p>
+                                    <p class="font-bold text-xl leading-tight truncate">৳{{ format_bd_number($commissionBalance, 2) }}</p>
+                                </div>
+                                <span class="w-9 h-9 rounded-full bg-white/15 flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-wallet text-white"></i>
+                                </span>
                             </div>
                         </div>
 

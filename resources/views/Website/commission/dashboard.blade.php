@@ -27,6 +27,29 @@
         </div>
     </div>
 
+
+    <!-- Balance -->
+    @php $hasBalance = $stats['balance'] > 0; @endphp
+    <div class="bg-gradient-to-br {{ $hasBalance ? 'from-orange-50 to-amber-50 border-orange-200' : 'from-green-50 to-emerald-50 border-green-200' }} border rounded-xl shadow-sm p-6 mb-8">
+        <div class="flex items-center gap-4">
+            <div class="w-16 h-16 {{ $hasBalance ? 'bg-orange-100' : 'bg-green-100' }} rounded-full flex items-center justify-center flex-shrink-0">
+                <i class="fas fa-hand-holding-usd {{ $hasBalance ? 'text-orange-600' : 'text-green-600' }} text-2xl"></i>
+            </div>
+            <div class="flex-1">
+                <h2 class="text-xl font-bold text-gray-900 mb-1">Your Balance</h2>
+                <p class="text-gray-600 text-sm">Total earned ৳{{ format_bd_number($stats['earned_total'], 2) }} — received ৳{{ format_bd_number($stats['total_paid'], 2) }}</p>
+            </div>
+            <div class="text-right">
+                <p class="text-3xl font-bold {{ $hasBalance ? 'text-orange-600' : 'text-green-600' }}">৳{{ format_bd_number($stats['balance'], 2) }}</p>
+                @if($hasBalance)
+                    <a href="{{ route('commission.earnings') }}" class="text-sm text-orange-600 hover:underline font-medium">View Details →</a>
+                @else
+                    <span class="text-sm text-green-600 font-medium">All settled</span>
+                @endif
+            </div>
+        </div>
+    </div>
+
     <!-- Stats Cards -->
     <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         <!-- Total Sales -->
@@ -91,24 +114,7 @@
     </div>
     @endif
 
-    <!-- Balance Due Alert -->
-    @if($stats['balance'] > 0)
-    <div class="bg-gradient-to-br from-orange-50 to-amber-50 border border-orange-200 rounded-xl shadow-sm p-6 mb-8">
-        <div class="flex items-center gap-4">
-            <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center flex-shrink-0">
-                <i class="fas fa-hand-holding-usd text-orange-600 text-2xl"></i>
-            </div>
-            <div class="flex-1">
-                <h2 class="text-xl font-bold text-gray-900 mb-1">Pending Balance</h2>
-                <p class="text-gray-600 text-sm">Total earned ৳{{ format_bd_number($stats['earned_total'], 2) }} — received ৳{{ format_bd_number($stats['total_paid'], 2) }}</p>
-            </div>
-            <div class="text-right">
-                <p class="text-3xl font-bold text-orange-600">৳{{ format_bd_number($stats['balance'], 2) }}</p>
-                <a href="{{ route('commission.earnings') }}" class="text-sm text-orange-600 hover:underline font-medium">View Details →</a>
-            </div>
-        </div>
-    </div>
-    @endif
+    
 
     <div class="grid lg:grid-cols-2 gap-6">
         <!-- Recent Earnings -->
