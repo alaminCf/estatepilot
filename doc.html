@@ -1,0 +1,1685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>London Abason - User Manual Documentation</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #fff;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 60px;
+        }
+        
+        /* Print styles */
+        @media print {
+            body {
+                padding: 20px;
+            }
+            .no-print {
+                display: none;
+            }
+            a {
+                color: #000;
+                text-decoration: none;
+            }
+        }
+        
+        /* Header */
+        .header {
+            text-align: center;
+            border-bottom: 3px solid #333;
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .header .subtitle {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .header .meta {
+            font-size: 12px;
+            color: #999;
+        }
+        
+        /* Table of Contents */
+        .toc {
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .toc h2 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #333;
+            padding-bottom: 5px;
+        }
+        
+        .toc ul {
+            list-style: none;
+        }
+        
+        .toc li {
+            padding: 5px 0;
+        }
+        
+        .toc a {
+            color: #333;
+            text-decoration: none;
+        }
+        
+        .toc a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Section */
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section h2 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #333;
+        }
+        
+        .section h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        
+        .section h4 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-top: 15px;
+            margin-bottom: 8px;
+        }
+        
+        .section p {
+            margin-bottom: 12px;
+            text-align: justify;
+        }
+        
+        .section ul, .section ol {
+            margin-left: 30px;
+            margin-bottom: 12px;
+        }
+        
+        .section li {
+            margin-bottom: 5px;
+        }
+        
+        /* Info boxes */
+        .info-box {
+            background: #f5f5f5;
+            border-left: 4px solid #333;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        
+        .info-box strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        /* URL */
+        .url {
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            padding: 8px 12px;
+            font-family: monospace;
+            display: inline-block;
+            margin: 5px 0;
+        }
+        
+        /* Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        table th {
+            background: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: left;
+            font-weight: 700;
+        }
+        
+        table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+        }
+        
+        table tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+        
+        /* Footer */
+        .footer {
+            margin-top: 60px;
+            padding-top: 20px;
+            border-top: 2px solid #333;
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+        }
+        
+        /* Print button */
+        .print-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #333;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .print-btn:hover {
+            background: #555;
+        }
+        
+        code {
+            background: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+        
+        .divider {
+            border: 0;
+            border-top: 1px solid #ddd;
+            margin: 30px 0;
+        }
+
+        /* Step-by-step action boxes */
+        .steps-box {
+            background: #f0f7ff;
+            border: 1px solid #b3d4fc;
+            border-left: 4px solid #2979ff;
+            padding: 18px 20px;
+            margin: 18px 0;
+            border-radius: 4px;
+        }
+
+        .steps-box .steps-title {
+            font-weight: 700;
+            font-size: 15px;
+            color: #1565c0;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .steps-box .steps-title::before {
+            content: '\2699';
+            font-size: 18px;
+        }
+
+        .steps-box ol {
+            margin-left: 20px;
+            margin-bottom: 0;
+        }
+
+        .steps-box ol li {
+            margin-bottom: 6px;
+            line-height: 1.7;
+        }
+
+        .tip-box {
+            background: #fffde7;
+            border-left: 4px solid #f9a825;
+            padding: 12px 16px;
+            margin: 15px 0;
+            font-size: 14px;
+        }
+
+        .tip-box strong {
+            color: #e65100;
+        }
+
+        .warning-box {
+            background: #fce4ec;
+            border-left: 4px solid #c62828;
+            padding: 12px 16px;
+            margin: 15px 0;
+            font-size: 14px;
+        }
+
+        .warning-box strong {
+            color: #b71c1c;
+        }
+
+        .nav-path {
+            background: #e8eaf6;
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 13px;
+            color: #283593;
+            margin: 4px 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <h1>LONDON ABASON</h1>
+        <div class="subtitle">Real Estate Platform - User Manual</div>
+        <div class="meta">Version 2.0 | Last Updated: March 2026 | https://londonabd.com/</div>
+    </div>
+
+    <!-- Table of Contents -->
+    <div class="toc">
+        <h2>Table of Contents</h2>
+        <ul>
+            <li>1. <a href="#introduction">Introduction</a></li>
+            <li>2. <a href="#getting-started">Getting Started</a></li>
+            <li>3. <a href="#user-roles">User Roles & Access Levels</a></li>
+            <li>4. <a href="#public-website">Public Website Features</a></li>
+            <li>5. <a href="#customer-portal">Customer Portal</a></li>
+            <li>6. <a href="#agent-portal">Agent Portal</a></li>
+            <li>7. <a href="#admin-panel">Admin Panel</a>
+                <ul>
+                    <li>7.1 <a href="#admin-panel">Dashboard & Analytics</a></li>
+                    <li>7.2 <a href="#admin-panel">Plot Management</a></li>
+                    <li>7.3 <a href="#admin-panel">Booking Management</a></li>
+                    <li>7.4 <a href="#admin-panel">Payment Management</a></li>
+                    <li>7.5 <a href="#admin-panel">User & Agent Management</a></li>
+                    <li>7.6 <a href="#admin-panel">Agent Commission Payments</a></li>
+                    <li>7.7 <a href="#admin-panel">Platform Settings</a></li>
+                    <li>7.8 <a href="#admin-panel">Reports & Analytics</a></li>
+                </ul>
+            </li>
+            <li>8. <a href="#payment-system">Payment & Installment System</a></li>
+            <li>9. <a href="#troubleshooting">Troubleshooting & FAQ</a></li>
+            <li>10. <a href="#contact">Contact & Support</a></li>
+        </ul>
+    </div>
+
+    <!-- 1. Introduction -->
+    <div class="section" id="introduction">
+        <h2>1. INTRODUCTION</h2>
+        
+        <p>Welcome to the London Abason Real Estate Platform, a comprehensive web application designed for managing residential and commercial plot sales. This platform provides a seamless experience for customers to browse and book plots, while offering powerful management tools for administrators and agents.</p>
+
+        <h3>1.1 Key Features</h3>
+        <ul>
+            <li><strong>Plot Management:</strong> Browse, search, and book residential/commercial plots</li>
+            <li><strong>Flexible Payment Plans:</strong> Support for booking payments and installment plans (Monthly/Quarterly)</li>
+            <li><strong>Multi-Role System:</strong> Separate portals for Customers, Agents, and Administrators</li>
+            <li><strong>SMS Notifications:</strong> Automated notifications for bookings, payments, and reminders</li>
+            <li><strong>Payment Tracking:</strong> Complete payment history and invoice generation</li>
+            <li><strong>Agent Commission:</strong> Track and manage agent commissions and payments</li>
+        </ul>
+
+        <h3>1.2 Who Should Use This Manual?</h3>
+        <ul>
+            <li><strong>Customers:</strong> Learn how to browse plots, make bookings, and manage payments</li>
+            <li><strong>Agents:</strong> Understand how to track referrals and commission payments</li>
+            <li><strong>Administrators:</strong> Master the complete system management and configuration</li>
+        </ul>
+
+        <h3>1.3 Website URL</h3>
+        <p>Main Website: <span class="url">https://londonabd.com/</span></p>
+    </div>
+
+    <hr class="divider">
+
+    <!-- 2. Getting Started -->
+    <div class="section" id="getting-started">
+        <h2>2. GETTING STARTED</h2>
+
+        <h3>2.1 System Requirements</h3>
+        
+        <h4>Recommended Browsers:</h4>
+        <ul>
+            <li>Google Chrome (Latest)</li>
+            <li>Mozilla Firefox (Latest)</li>
+            <li>Safari (Latest)</li>
+            <li>Microsoft Edge (Latest)</li>
+        </ul>
+
+        <h4>Device Support:</h4>
+        <ul>
+            <li>Desktop Computers</li>
+            <li>Laptops</li>
+            <li>Tablets</li>
+            <li>Mobile Phones (Responsive Design)</li>
+        </ul>
+
+        <h3>2.2 Registration Process</h3>
+        
+        <p>New users must register an account to book plots and access the customer portal.</p>
+
+        <div class="steps-box">
+            <div class="steps-title">How to Register a New Account</div>
+            <ol>
+                <li>Go to <span class="url">https://londonabd.com/register</span> or click the <strong>"Register"</strong> button on the top-right of the homepage.</li>
+                <li>Fill in the registration form:
+                    <ul>
+                        <li><strong>Full Name</strong> — Enter your complete name as it will appear on bookings.</li>
+                        <li><strong>Email Address</strong> — Provide a valid email (used for notifications).</li>
+                        <li><strong>Phone Number</strong> — Enter your mobile number (this will be verified via OTP).</li>
+                        <li><strong>Address</strong> — Your residential or business address.</li>
+                        <li><strong>Password</strong> — Create a strong password (min. 8 characters).</li>
+                    </ul>
+                </li>
+                <li>Click the <strong>"Register"</strong> button to submit the form.</li>
+                <li>You will be redirected to the <strong>Phone Verification</strong> page. A 6-digit OTP code is sent to your phone via SMS.</li>
+                <li>Enter the OTP code within <strong>10 minutes</strong>. If the code expires, click <strong>"Resend OTP"</strong> to receive a new one.</li>
+                <li>Once verified, your account is activated. You will be redirected to the login page.</li>
+            </ol>
+        </div>
+
+        <div class="tip-box">
+            <strong>Tip:</strong> Use a phone number you have active access to — the OTP verification is mandatory and cannot be skipped.
+        </div>
+
+        <h3>2.3 Login Process</h3>
+        
+        <table>
+            <tr>
+                <th>User Type</th>
+                <th>Login URL</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td>Customer</td>
+                <td>https://londonabd.com/login</td>
+                <td>For regular users and plot buyers</td>
+            </tr>
+            <tr>
+                <td>Agent</td>
+                <td>https://londonabd.com/login</td>
+                <td>For sales agents and brokers</td>
+            </tr>
+            <tr>
+                <td>Admin</td>
+                <td>https://londonabd.com/login</td>
+                <td>For system administrators</td>
+            </tr>
+        </table>
+
+        <h3>2.4 Forgot Password</h3>
+        <p>If you forget your password, you can reset it via SMS verification:</p>
+
+        <div class="steps-box">
+            <div class="steps-title">How to Reset Your Password</div>
+            <ol>
+                <li>On the login page, click the <strong>"Forgot Password"</strong> link below the password field.</li>
+                <li>Enter your <strong>registered phone number</strong> in the field provided.</li>
+                <li>Click <strong>"Send OTP"</strong> — a 6-digit verification code will be sent to your phone via SMS.</li>
+                <li>Enter the OTP code on the verification screen.</li>
+                <li>Once verified, you will be prompted to <strong>create a new password</strong>.</li>
+                <li>Enter your new password, confirm it, and click <strong>"Reset Password"</strong>.</li>
+                <li>You'll be redirected to the login page. Log in with your new password.</li>
+            </ol>
+        </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- 3. User Roles -->
+    <div class="section" id="user-roles">
+        <h2>3. USER ROLES & ACCESS LEVELS</h2>
+
+        <p>The London Abason platform has three distinct user roles, each with specific permissions and dashboard access.</p>
+
+        <h3>3.1 Customer / User Role</h3>
+        
+        <p><strong>Description:</strong> Regular users who browse and purchase plots through the platform.</p>
+        
+        <p><strong>Dashboard URL:</strong> <span class="url">https://londonabd.com/my-account</span></p>
+
+        <h4>Permissions:</h4>
+        <ul>
+            <li>Browse available plots</li>
+            <li>View plot details and pricing</li>
+            <li>Book plots online</li>
+            <li>View booking history</li>
+            <li>Track payment history</li>
+            <li>Download invoices</li>
+            <li>Manage profile settings</li>
+        </ul>
+
+        <h4>Dashboard Sections:</h4>
+        <ul>
+            <li>Dashboard Overview</li>
+            <li>My Bookings</li>
+            <li>Payment History</li>
+            <li>Profile Settings</li>
+        </ul>
+
+        <h3>3.2 Agent Role</h3>
+        
+        <p><strong>Description:</strong> Sales agents and brokers who refer customers and earn commissions.</p>
+        
+        <p><strong>Dashboard URL:</strong> <span class="url">https://londonabd.com/agent/dashboard</span></p>
+
+        <h4>Permissions:</h4>
+        <ul>
+            <li>View referred bookings</li>
+            <li>Track commission earnings</li>
+            <li>View commission payment history</li>
+            <li>Monitor booking status</li>
+            <li>Update profile information</li>
+        </ul>
+
+        <h4>Dashboard Sections:</h4>
+        <ul>
+            <li>Agent Dashboard</li>
+            <li>My Referral Bookings</li>
+            <li>Commission Overview</li>
+            <li>Payment History</li>
+            <li>Profile Settings</li>
+        </ul>
+
+        <h3>3.3 Administrator Role</h3>
+        
+        <p><strong>Description:</strong> System administrators with full access to all platform features and settings.</p>
+        
+        <p><strong>Admin Panel URL:</strong> <span class="url">https://londonabd.com/admin/dashboard</span></p>
+
+        <h4>Full Permissions:</h4>
+        <ul>
+            <li>Complete plot management (Create, Read, Update, Delete)</li>
+            <li>Booking management & approval</li>
+            <li>Payment recording & tracking</li>
+            <li>User & agent management</li>
+            <li>Agent commission payments</li>
+            <li>Platform settings & configuration</li>
+            <li>Reports & analytics</li>
+        </ul>
+
+        <h4>Admin Panel Sections:</h4>
+        <ul>
+            <li>Dashboard & Analytics</li>
+            <li>Plot Management</li>
+            <li>Booking Management</li>
+            <li>Payment Management</li>
+            <li>User Management</li>
+            <li>Agent Management</li>
+            <li>Agent Payments</li>
+            <li>Platform Settings</li>
+        </ul>
+    </div>
+
+    <hr class="divider">
+
+    <!-- 4. Public Website -->
+    <div class="section" id="public-website">
+        <h2>4. PUBLIC WEBSITE FEATURES</h2>
+
+        <p>The public-facing website allows visitors to explore available plots without requiring login credentials.</p>
+
+        <h3>4.1 Homepage</h3>
+        
+        <p><strong>URL:</strong> <span class="url">https://londonabd.com/</span></p>
+        
+        <p>The main landing page features:</p>
+        <ul>
+            <li>Hero banner with call-to-action</li>
+            <li>Search & filter functionality</li>
+            <li>Featured available plots</li>
+            <li>Company information sections</li>
+            <li>Contact information</li>
+        </ul>
+
+        <h4>Search & Filter Options:</h4>
+        <ul>
+            <li>Search by plot number or location</li>
+            <li>Filter by plot size (Katha)</li>
+            <li>Filter by price range</li>
+            <li>Filter by block and road number</li>
+            <li>Filter by availability status</li>
+        </ul>
+
+        <h3>4.2 Plot Listing Page</h3>
+        
+        <p><strong>URL:</strong> <span class="url">https://londonabd.com/plots</span></p>
+        
+        <p>Browse all available residential and commercial plots with advanced filtering options.</p>
+
+        <h4>View Options:</h4>
+        <ul>
+            <li>Grid View: Display plots in card layout with images</li>
+            <li>List View: Display plots in detailed list format</li>
+        </ul>
+
+        <h4>Plot Information Displayed:</h4>
+        <ul>
+            <li>Plot Number</li>
+            <li>Size in Katha</li>
+            <li>Block & Road Number</li>
+            <li>Facing Direction</li>
+            <li>Total Price</li>
+            <li>Booking Amount</li>
+            <li>Installment Plan (if available)</li>
+            <li>Monthly/Quarterly EMI</li>
+            <li>Availability Status</li>
+        </ul>
+
+        <h4>Sorting Options:</h4>
+        <ul>
+            <li>Price: Low to High</li>
+            <li>Price: High to Low</li>
+            <li>Latest Added</li>
+            <li>Most Popular</li>
+        </ul>
+
+        <h3>4.3 Plot Details Page</h3>
+        
+        <p><strong>URL Format:</strong> <span class="url">https://londonabd.com/plots/{plot-id}</span></p>
+        
+        <p>Detailed information about a specific plot with booking functionality.</p>
+
+        <h4>Information Displayed:</h4>
+        <ul>
+            <li>High-quality plot images/map</li>
+            <li>Complete plot specifications</li>
+            <li>Detailed payment plan breakdown</li>
+            <li>Total plot price</li>
+            <li>Booking money required</li>
+            <li>Remaining payment amount</li>
+            <li>Installment plan type (Monthly/Quarterly)</li>
+            <li>Number of installments</li>
+            <li>Per installment amount</li>
+            <li>Google Maps location</li>
+            <li>Nearby facilities information</li>
+        </ul>
+
+        <h4>Booking Action:</h4>
+        <p>Each plot details page includes a "Book Now" button for plot reservation.</p>
+
+        <div class="steps-box">
+            <div class="steps-title">How to Book a Plot Online</div>
+            <ol>
+                <li>Browse to the <strong>Plot Listing</strong> page or use search/filter to find a plot.</li>
+                <li>Click on a plot card to open the <strong>Plot Details</strong> page.</li>
+                <li>Review the plot specifications, pricing, and installment plan.</li>
+                <li>Click the <strong>"Book Now"</strong> button.
+                    <ul>
+                        <li>If you are <strong>not logged in</strong>, you will be redirected to the login/register page first.</li>
+                        <li>If you are <strong>logged in</strong>, a booking confirmation form will open.</li>
+                    </ul>
+                </li>
+                <li>The form shows pre-filled plot details (price, installment plan, booking amount).</li>
+                <li>Optionally enter a <strong>Referral Agent code</strong> if an agent referred you.</li>
+                <li>Click <strong>"Confirm Booking"</strong> to submit your reservation.</li>
+                <li>Your booking status will be <strong>"Pending"</strong> until the admin reviews and approves it.</li>
+                <li>You will receive an <strong>SMS notification</strong> once the admin approves your booking.</li>
+            </ol>
+        </div>
+
+        <div class="tip-box">
+            <strong>Tip:</strong> After booking, visit <span class="nav-path">My Account → My Bookings</span> to track your booking status and payment progress.
+        </div>
+
+        <h3>4.4 Other Public Pages</h3>
+        
+        <table>
+            <tr>
+                <th>Page</th>
+                <th>URL</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td>About Us</td>
+                <td>https://londonabd.com/about</td>
+                <td>Company overview, mission, and vision</td>
+            </tr>
+            <tr>
+                <td>FAQ</td>
+                <td>https://londonabd.com/faq</td>
+                <td>Frequently asked questions and answers</td>
+            </tr>
+            <tr>
+                <td>Contact</td>
+                <td>https://londonabd.com/contact</td>
+                <td>Contact form, office address, and details</td>
+            </tr>
+        </table>
+    </div>
+
+    <hr class="divider">
+
+    <!-- 5. Customer Portal -->
+    <div class="section" id="customer-portal">
+        <h2>5. CUSTOMER PORTAL</h2>
+
+        <p><strong>Access URL:</strong> <span class="url">https://londonabd.com/my-account</span></p>
+        
+        <p>Available after logging in with customer credentials.</p>
+
+        <h3>5.1 Dashboard Overview</h3>
+        
+        <p>The customer dashboard provides a comprehensive overview of your bookings, payments, and account status.</p>
+
+        <div class="steps-box">
+            <div class="steps-title">How to Access Your Dashboard</div>
+            <ol>
+                <li>Log in at <span class="url">https://londonabd.com/login</span> with your credentials.</li>
+                <li>After login, you are automatically redirected to <span class="nav-path">My Account → Dashboard</span>.</li>
+                <li>Review your key metrics: Active Bookings, Total Paid, Total Payments, and Pending Installments.</li>
+                <li>Check the <strong>Installment Overview</strong> section for upcoming payment dates.</li>
+            </ol>
+        </div>
+
+        <h4>Key Metrics Displayed:</h4>
+        <ul>
+            <li>Active Bookings (Count)</li>
+            <li>Total Paid Amount</li>
+            <li>Total Payments (Count)</li>
+            <li>Pending Installments (Count)</li>
+        </ul>
+
+        <h4>Installment Overview:</h4>
+        <ul>
+            <li>Paid Installments: Number of completed installments</li>
+            <li>Pending Installments: Remaining installments to pay</li>
+            <li>Next Due Date: Date of next installment payment</li>
+        </ul>
+
+        <h3>5.2 My Bookings</h3>
+        
+        <p><strong>URL:</strong> <span class="url">https://londonabd.com/my-account/bookings</span></p>
+        
+        <p>View all your plot bookings with complete details.</p>
+
+        <div class="steps-box">
+            <div class="steps-title">How to View and Track Your Bookings</div>
+            <ol>
+                <li>Navigate to <span class="nav-path">My Account → My Bookings</span> from the sidebar menu.</li>
+                <li>You will see a list of all your bookings with status indicators (Pending / Approved / Cancelled).</li>
+                <li>Click <strong>"View"</strong> on any booking to see full details including plot info, payment plan, and progress.</li>
+                <li>In the booking detail view, you can see:
+                    <ul>
+                        <li>Payment progress bar showing how much you've paid vs. remaining</li>
+                        <li>Installment schedule with paid and pending installments</li>
+                        <li>All recorded payments for this booking</li>
+                    </ul>
+                </li>
+                <li>Click <strong>"Download Invoice"</strong> on any payment entry to get a PDF receipt.</li>
+            </ol>
+        </div>
+
+        <h4>Booking Information Displayed:</h4>
+        <ul>
+            <li>Booking ID: Unique reference number</li>
+            <li>Plot Details: Plot number, size, block</li>
+            <li>Booking Date: Date of booking</li>
+            <li>Payment Plan: Installment details</li>
+            <li>Payment Progress: Amount paid vs remaining</li>
+            <li>Status: Pending/Confirmed/Approved</li>
+        </ul>
+
+        <h4>Available Actions:</h4>
+        <ul>
+            <li>View complete booking details</li>
+            <li>View payment history for each booking</li>
+            <li>Download payment receipts and invoices</li>
+            <li>Track installment schedule</li>
+        </ul>
+
+        <h3>5.3 Payment History</h3>
+        
+        <p><strong>URL:</strong> <span class="url">https://londonabd.com/my-account/payments</span></p>
+        
+        <p>Complete record of all payments made for your bookings.</p>
+
+        <h4>Payment Details Include:</h4>
+        <ul>
+            <li>Transaction ID and date</li>
+            <li>Payment amount</li>
+            <li>Payment type (Booking/Installment)</li>
+            <li>Associated plot information</li>
+            <li>Payment notes and remarks</li>
+            <li>Receipt generation</li>
+            <li>Downloadable invoices</li>
+            <li>Payment confirmation status</li>
+        </ul>
+
+        <h4>Download Invoice:</h4>
+        <p>Every payment generates a professional PDF invoice.</p>
+
+        <div class="steps-box">
+            <div class="steps-title">How to Download a Payment Invoice</div>
+            <ol>
+                <li>Go to <span class="nav-path">My Account → Payments</span>.</li>
+                <li>Find the payment record you want an invoice for.</li>
+                <li>Click the <strong>"Download Invoice"</strong> button (printer/download icon) next to the payment.</li>
+                <li>The PDF invoice will automatically download to your device.</li>
+                <li>The invoice includes: company details, customer info, plot details, payment breakdown, outstanding balance, and remaining installments.</li>
+            </ol>
+        </div>
+
+        <h3>5.4 Profile Settings</h3>
+        
+        <p><strong>URL:</strong> <span class="url">https://londonabd.com/my-account/profile</span></p>
+        
+        <p>View and update your personal information and account settings.</p>
+
+        <div class="steps-box">
+            <div class="steps-title">How to Update Your Profile</div>
+            <ol>
+                <li>Navigate to <span class="nav-path">My Account → Profile Settings</span> from the sidebar.</li>
+                <li>Update any of the editable fields: Name, Email, Phone, or Address.</li>
+                <li>Click <strong>"Save Changes"</strong> to update your profile information.</li>
+                <li>To change your password:
+                    <ul>
+                        <li>Enter your <strong>Current Password</strong> for verification.</li>
+                        <li>Enter your <strong>New Password</strong> (minimum 8 characters).</li>
+                        <li>Re-enter the new password in the <strong>Confirm Password</strong> field.</li>
+                        <li>Click <strong>"Update Password"</strong>.</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+
+        <h4>Editable Information:</h4>
+        <ul>
+            <li>Full Name</li>
+            <li>Email Address</li>
+            <li>Phone Number</li>
+            <li>Address</li>
+            <li>Password Change</li>
+        </ul>
+
+        <h4>Security Features:</h4>
+        <ul>
+            <li>Password strength requirements</li>
+            <li>Phone number verification</li>
+            <li>Email confirmation for changes</li>
+            <li>Secure password hashing</li>
+            <li>Account activity logging</li>
+        </ul>
+    </div>
+
+    <hr class="divider">
+
+    <!-- 6. Agent Portal -->
+    <div class="section" id="agent-portal">
+        <h2>6. AGENT PORTAL</h2>
+
+        <p><strong>Access URL:</strong> <span class="url">https://londonabd.com/agent/dashboard</span></p>
+        
+        <p>Available for users with Agent role assigned by the administrator.</p>
+
+        <h3>6.1 Agent Dashboard</h3>
+        
+        <p>The agent dashboard provides an overview of referral performance, commissions, and earnings.</p>
+
+        <div class="steps-box">
+            <div class="steps-title">How to Access Agent Dashboard</div>
+            <ol>
+                <li>Log in at <span class="url">https://londonabd.com/login</span> with your agent credentials.</li>
+                <li>You will be automatically redirected to the <strong>Agent Dashboard</strong>.</li>
+                <li>Review your key performance metrics: Total Referrals, Confirmed Bookings, Total Commission Earned, and Received Payments.</li>
+            </ol>
+        </div>
+
+        <h4>Key Metrics:</h4>
+        <ul>
+            <li>Total Referrals (Count)</li>
+            <li>Confirmed Bookings (Count)</li>
+            <li>Total Commission Earned (Amount)</li>
+            <li>Received Payments (Amount)</li>
+        </ul>
+
+        <div class="info-box">
+            <strong>How Referrals Work:</strong>
+            When a customer books a plot, they can optionally specify a referral agent. Once the admin confirms the booking and records payments, the agent becomes eligible for commission based on the agreed terms.
+        </div>
+
+        <h3>6.2 My Referral Bookings</h3>
+        
+        <p><strong>URL:</strong> <span class="url">https://londonabd.com/agent/bookings</span></p>
+        
+        <p>View all bookings where you were listed as the referral agent.</p>
+
+        <div class="steps-box">
+            <div class="steps-title">How to Track Your Referral Bookings</div>
+            <ol>
+                <li>Navigate to <span class="nav-path">Agent Dashboard → My Referral Bookings</span> from the sidebar.</li>
+                <li>View the list of all bookings that used your referral code.</li>
+                <li>Each booking shows: customer name, plot details, booking date, status, and payment progress.</li>
+                <li>Click <strong>"View"</strong> on any booking for detailed information including commission eligibility.</li>
+            </ol>
+        </div>
+
+        <h4>Booking Information:</h4>
+        <ul>
+            <li>Customer name and contact</li>
+            <li>Plot details (number, size, location)</li>
+            <li>Booking date and status</li>
+            <li>Total plot price</li>
+            <li>Payment plan details</li>
+            <li>Booking approval status</li>
+            <li>Payment progress</li>
+            <li>Commission eligibility</li>
+        </ul>
+
+        <h3>6.3 Commission Overview</h3>
+        
+        <p><strong>URL:</strong> <span class="url">https://londonabd.com/agent/commissions</span></p>
+        
+        <p>Track your commission earnings from confirmed bookings.</p>
+
+        <div class="steps-box">
+            <div class="steps-title">How to Check Your Commission Status</div>
+            <ol>
+                <li>Navigate to <span class="nav-path">Agent Dashboard → Commission Overview</span>.</li>
+                <li>View the summary of all commissions: total earned, received, and pending.</li>
+                <li>Each entry shows the associated booking, plot sold, total price, and commission amount.</li>
+                <li>Check the <strong>"Payment Status"</strong> column to see if a commission is Pending or Paid.</li>
+            </ol>
+        </div>
+
+        <h4>Commission Details:</h4>
+        <ul>
+            <li>Booking reference and customer</li>
+            <li>Plot sold and total price</li>
+            <li>Commission amount earned</li>
+            <li>Payment status (Pending/Paid)</li>
+        </ul>
+
+        <div class="info-box">
+            <strong>Note:</strong> Commissions are calculated based on confirmed bookings and are paid according to the agreement with management. The exact commission rate varies by plot type and agreement terms.
+        </div>
+
+        <h3>6.4 Commission Payment History</h3>
+        
+        <p><strong>URL:</strong> <span class="url">https://londonabd.com/agent/payments</span></p>
+        
+        <p>View all commission payments received from the company.</p>
+
+        <div class="steps-box">
+            <div class="steps-title">How to View Your Commission Payment History</div>
+            <ol>
+                <li>Navigate to <span class="nav-path">Agent Dashboard → Payment History</span>.</li>
+                <li>View the list of all commission payments made to you by the admin.</li>
+                <li>Each payment shows: date, amount, associated booking, plot details, and payment notes.</li>
+                <li>You will also receive an <strong>SMS notification</strong> whenever a new commission payment is recorded.</li>
+            </ol>
+        </div>
+
+        <h4>Payment Records:</h4>
+        <ul>
+            <li>Payment date and transaction ID</li>
+            <li>Amount received</li>
+            <li>Associated booking reference</li>
+            <li>Plot details for which commission was paid</li>
+            <li>Payment notes and remarks</li>
+            <li>Payment method used</li>
+        </ul>
+
+        <p><strong>Payment Notifications:</strong> Agents receive SMS notifications when commission payments are processed by the administrator.</p>
+
+        <h3>6.5 Agent Profile</h3>
+        
+        <p><strong>URL:</strong> <span class="url">https://londonabd.com/agent/profile</span></p>
+        
+        <p>Manage your agent profile and contact information.</p>
+
+        <h4>Profile Information:</h4>
+        <ul>
+            <li>Full Name</li>
+            <li>Email Address</li>
+            <li>Phone Number</li>
+            <li>Office Address</li>
+            <li>Password Management</li>
+        </ul>
+
+        <h4>Agent Status Information:</h4>
+        <ul>
+            <li>Agent ID / Reference</li>
+            <li>Registration Date</li>
+            <li>Account Status</li>
+            <li>Performance Rating</li>
+            <li>Total Sales Count</li>
+        </ul>
+    </div>
+
+    <hr class="divider">
+
+    <!-- 7. Admin Panel -->
+    <div class="section" id="admin-panel">
+        <h2>7. ADMIN PANEL</h2>
+
+        <p><strong>Access URL:</strong> <span class="url">https://londonabd.com/admin/dashboard</span></p>
+        
+        <p>Full administrative access for system management and configuration.</p>
+
+        <div class="info-box">
+            <strong>Admin Access Only:</strong> This section describes administrator-only features. Regular users and agents do not have access to these functions.
+        </div>
+
+        <h3>7.1 Admin Dashboard & Analytics</h3>
+        
+        <p>The admin dashboard provides comprehensive system analytics and quick access to all management features.</p>
+
+        <div class="steps-box">
+            <div class="steps-title">How to Access the Admin Dashboard</div>
+            <ol>
+                <li>Log in at <span class="url">https://londonabd.com/login</span> using your admin credentials.</li>
+                <li>You are automatically redirected to the <strong>Admin Dashboard</strong>.</li>
+                <li>Review top-level metrics: Total Plots, Total Bookings, Total Users, and Total Collections.</li>
+                <li>Scroll down to see revenue charts, payment status distribution, and recent activity logs.</li>
+                <li>Use the sidebar navigation to access any management section.</li>
+            </ol>
+        </div>
+
+        <h4>Key Metrics:</h4>
+        <ul>
+            <li>Total Plots (Count with breakdown: Available/Booked)</li>
+            <li>Total Bookings (Count with status: Pending/Confirmed)</li>
+            <li>Total Users (Count: Customers/Agents)</li>
+            <li>Total Collections (Amount with monthly breakdown)</li>
+        </ul>
+
+        <h4>Dashboard Features:</h4>
+        <ul>
+            <li>Revenue charts and trends</li>
+            <li>Payment status distribution</li>
+            <li>Booking status overview</li>
+            <li>Pending installments tracking</li>
+            <li>Recent activity logs</li>
+        </ul>
+
+        <h3>7.2 Plot Management</h3>
+        
+        <p><strong>URL:</strong> <span class="url">https://londonabd.com/admin/plots</span></p>
+        
+        <p>Complete control over all plot listings in the system.</p>
+
+        <div class="steps-box">
+            <div class="steps-title">How to Add a New Plot</div>
+            <ol>
+                <li>Navigate to <span class="nav-path">Admin Sidebar → Plots → All Plots</span>.</li>
+                <li>Click the <strong>"+ Add New Plot"</strong> button at the top right.</li>
+                <li>Fill in the <strong>Basic Information</strong>:
+                    <ul>
+                        <li>Title / Name, Plot Number, Size (Katha), Block, Road Number, Road Width, Facing Direction, Plot Category</li>
+                    </ul>
+                </li>
+                <li>Fill in <strong>Pricing & Payment</strong>:
+                    <ul>
+                        <li><strong>Total Price</strong> — Full price of the plot.</li>
+                        <li><strong>Booking Payment</strong> — Amount required to reserve (remaining is auto-calculated).</li>
+                        <li><strong>Installment Plan</strong> — Select Monthly or Quarterly.</li>
+                        <li><strong>Total Installments</strong> — Number of installments.</li>
+                        <li><strong>Per Installment Amount</strong> — Amount per installment.</li>
+                    </ul>
+                </li>
+                <li>Add <strong>Additional Details</strong>: Description, Plot Map/Image (JPEG, PNG, or PDF up to 5MB), Google Maps Location, Nearby Facilities.</li>
+                <li>Set <strong>Status</strong> to "Available" to list it publicly.</li>
+                <li>Click <strong>"Save Plot"</strong> to create the listing.</li>
+            </ol>
+        </div>
+
+        <div class="steps-box">
+            <div class="steps-title">How to Edit an Existing Plot</div>
+            <ol>
+                <li>Go to <span class="nav-path">Admin → Plots</span> and find the plot in the list.</li>
+                <li>Click the <strong>"Edit"</strong> button (pencil icon) on the plot row.</li>
+                <li>Modify any fields as needed and click <strong>"Update Plot"</strong>.</li>
+            </ol>
+        </div>
+
+        <div class="warning-box">
+            <strong>Important:</strong> Only plots with "Available" status can be edited. If a plot is Booked or Sold, you must cancel/remove all associated bookings first before editing.
+        </div>
+
+        <div class="steps-box">
+            <div class="steps-title">How to Search and Filter Plots</div>
+            <ol>
+                <li>Go to <span class="nav-path">Admin → Plots</span>.</li>
+                <li>Use the <strong>Search</strong> field to search by plot title, plot number, block, or road number.</li>
+                <li>Use the <strong>Status</strong> dropdown to filter by: Available, Pending, Booked, or Sold.</li>
+                <li>Adjust <strong>Per Page</strong> to show 10, 25, 50, or 100 results.</li>
+                <li>Click <strong>"Filter"</strong> to apply. Click <strong>"Clear"</strong> to reset all filters.</li>
+            </ol>
+        </div>
+
+        <h4>Plot Management Quick Reference:</h4>
+        <ul>
+            <li><strong>View:</strong> Click eye icon to see complete plot details and booking history</li>
+            <li><strong>Edit:</strong> Click pencil icon to update plot information (available plots only)</li>
+            <li><strong>Delete:</strong> Click trash icon to remove a plot listing (available plots only)</li>
+        </ul>
+
+        <h3>7.3 Booking Management</h3>
+        
+        <p><strong>URL:</strong> <span class="url">https://londonabd.com/admin/bookings</span></p>
+        
+        <p>Manage all customer bookings and approvals.</p>
+
+        <div class="steps-box">
+            <div class="steps-title">How to View and Filter Bookings</div>
+            <ol>
+                <li>Navigate to <span class="nav-path">Admin Sidebar → Bookings</span>.</li>
+                <li>Use the <strong>Search</strong> field to find bookings by customer name, phone, email, or plot number.</li>
+                <li>Filter by <strong>Status</strong>: Pending, Approved, Pre-Booked, or Cancelled.</li>
+                <li>Filter by <strong>Date Range</strong> (From / To) to narrow results.</li>
+                <li>Click <strong>"Filter"</strong> to apply. Click <strong>"Clear"</strong> to reset.</li>
+                <li>Click <strong>"Export CSV"</strong> to download filtered results as a spreadsheet.</li>
+            </ol>
+        </div>
+
+        <div class="steps-box">
+            <div class="steps-title">How to Approve or Update a Booking</div>
+            <ol>
+                <li>Go to <span class="nav-path">Admin → Bookings</span> and click <strong>"View"</strong> (eye icon) on a booking.</li>
+                <li>Review booking details: customer info, plot details, referral agent, and payment plan.</li>
+                <li>To change the booking status, use the <strong>"Status"</strong> dropdown at the top:
+                    <ul>
+                        <li><strong>Pending</strong> → Initial state when customer submits booking.</li>
+                        <li><strong>Pre-Booked</strong> → Temporary reservation with expiry date.</li>
+                        <li><strong>Approved</strong> → Confirms the booking (plot status changes to "Booked" automatically).</li>
+                        <li><strong>Cancelled</strong> → Cancels the booking (plot becomes "Available" again).</li>
+                    </ul>
+                </li>
+                <li>Optionally add <strong>Additional Info / Notes</strong> in the text area.</li>
+                <li>Click <strong>"Update Booking"</strong> to save changes.</li>
+                <li>The customer receives an <strong>SMS notification</strong> about the status change.</li>
+            </ol>
+        </div>
+
+        <div class="steps-box">
+            <div class="steps-title">How to Create a Manual Booking (Walk-in / Offline Customer)</div>
+            <ol>
+                <li>Go to <span class="nav-path">Admin → Bookings</span> and click the <strong>"+ Create Booking"</strong> button.</li>
+                <li>Select a <strong>Customer</strong> from the dropdown (only active users are listed).</li>
+                <li>Select an <strong>Available Plot</strong> from the plot dropdown.</li>
+                <li>The form auto-fills the plot's pricing and installment plan details.</li>
+                <li>Optionally assign a <strong>Referral Agent</strong> from the agent dropdown.</li>
+                <li>Click <strong>"Create Booking"</strong> to submit.</li>
+                <li>The booking is created and the customer is notified via SMS.</li>
+            </ol>
+        </div>
+
+        <div class="steps-box">
+            <div class="steps-title">How to Change the Referral Agent on a Booking</div>
+            <ol>
+                <li>Open the booking detail page by clicking <strong>"View"</strong> on a booking.</li>
+                <li>In the Agent section, use the <strong>"Change Agent"</strong> dropdown to select a different agent.</li>
+                <li>Click <strong>"Update Agent"</strong> to save the change.</li>
+            </ol>
+        </div>
+
+        <h4>Booking Status Flow:</h4>
+        <p><strong>Pending → Pre-Booked → Approved → Completed</strong> (or Cancelled at any stage)</p>
+
+        <h3>7.4 Payment Management</h3>
+        
+        <p><strong>URL:</strong> <span class="url">https://londonabd.com/admin/payments</span></p>
+        
+        <p>Record and track all customer payments.</p>
+
+        <div class="steps-box">
+            <div class="steps-title">How to Record a New Payment</div>
+            <ol>
+                <li>Navigate to <span class="nav-path">Admin Sidebar → Payments</span>.</li>
+                <li>Click the <strong>"+ Record Payment"</strong> button.</li>
+                <li>In the <strong>Booking</strong> field, type the customer name, phone number, or plot number to search. Select the correct booking from the dropdown.</li>
+                <li>The system displays the booking's financial summary: total price, amount paid, outstanding balance, installment details, and partial payment progress.</li>
+                <li>Select the <strong>Payment Type</strong>:
+                    <ul>
+                        <li><strong>Booking Payment</strong> — Initial payment to secure the reservation.</li>
+                        <li><strong>Installment Payment</strong> — Full installment amount (marks one installment as paid).</li>
+                        <li><strong>Part Of Installment</strong> — Partial installment payment (accumulates toward a full installment).</li>
+                        <li><strong>Full Payment</strong> — Pays the entire remaining balance at once.</li>
+                    </ul>
+                </li>
+                <li>Enter the <strong>Amount</strong> (auto-suggested based on payment type).</li>
+                <li>Add an optional <strong>Payment Note</strong> (e.g., bank reference, cash receipt number).</li>
+                <li>Click <strong>"Save Payment"</strong> to record it.</li>
+                <li>The customer automatically receives an <strong>SMS notification</strong> confirming the payment.</li>
+            </ol>
+        </div>
+
+        <div class="steps-box">
+            <div class="steps-title">How to Generate and Download an Invoice</div>
+            <ol>
+                <li>Go to <span class="nav-path">Admin → Payments</span>.</li>
+                <li>Find the payment in the list (use search/filter if needed).</li>
+                <li>Click the <strong>"Invoice"</strong> button (printer icon) on the payment row.</li>
+                <li>The invoice page opens with a professional PDF-ready layout showing all payment and booking details.</li>
+                <li>Click <strong>"Print"</strong> to print or save as PDF.</li>
+            </ol>
+        </div>
+
+        <div class="steps-box">
+            <div class="steps-title">How to Search and Export Payments</div>
+            <ol>
+                <li>Go to <span class="nav-path">Admin → Payments</span>.</li>
+                <li>Use the <strong>Search</strong> field to find payments by customer name, phone, or plot number.</li>
+                <li>Filter by <strong>Booking ID</strong> to see all payments for a specific booking.</li>
+                <li>Filter by <strong>Date Range</strong> to narrow results by time period.</li>
+                <li>Click <strong>"Export CSV"</strong> to download the filtered payment data as a spreadsheet.</li>
+            </ol>
+        </div>
+
+        <div class="warning-box">
+            <strong>Caution:</strong> Deleting a payment is permanent and cannot be undone. Only delete payments that were recorded in error. The customer will receive an SMS notification about the deletion.
+        </div>
+
+        <h4>Payment Types Reference:</h4>
+        <table>
+            <tr>
+                <th>Type</th>
+                <th>Description</th>
+                <th>When to Use</th>
+            </tr>
+            <tr>
+                <td>Booking Payment</td>
+                <td>Initial payment to secure the plot</td>
+                <td>First payment when a new booking is approved</td>
+            </tr>
+            <tr>
+                <td>Installment Payment</td>
+                <td>Full scheduled installment</td>
+                <td>Customer pays the full monthly/quarterly installment amount</td>
+            </tr>
+            <tr>
+                <td>Part Of Installment</td>
+                <td>Partial amount toward an installment</td>
+                <td>Customer pays less than the full installment amount</td>
+            </tr>
+            <tr>
+                <td>Full Payment</td>
+                <td>Complete remaining balance</td>
+                <td>Customer wants to clear the entire outstanding amount at once</td>
+            </tr>
+        </table>
+
+        <h3>7.5 User & Agent Management</h3>
+
+        <h4>User Management:</h4>
+        <p><strong>URL:</strong> <span class="url">https://londonabd.com/admin/users</span></p>
+
+        <div class="steps-box">
+            <div class="steps-title">How to Create a New User</div>
+            <ol>
+                <li>Navigate to <span class="nav-path">Admin Sidebar → Users</span>.</li>
+                <li>Click the <strong>"+ Add New User"</strong> button.</li>
+                <li>Fill in: Name, Email, Phone Number, Address, and Password.</li>
+                <li>Click <strong>"Create User"</strong> to save. The user can now log in immediately.</li>
+            </ol>
+        </div>
+
+        <div class="steps-box">
+            <div class="steps-title">How to Edit or Disable a User</div>
+            <ol>
+                <li>Go to <span class="nav-path">Admin → Users</span> and find the user in the list.</li>
+                <li>Click <strong>"Edit"</strong> (pencil icon) to update their information.</li>
+                <li>To disable an account, change the <strong>Status</strong> field to "Inactive" and save.</li>
+                <li>To view a user's complete details and booking history, click <strong>"View"</strong> (eye icon).</li>
+            </ol>
+        </div>
+
+        <h4>Agent Management:</h4>
+        <p><strong>URL:</strong> <span class="url">https://londonabd.com/admin/agents</span></p>
+
+        <div class="steps-box">
+            <div class="steps-title">How to Create a New Agent</div>
+            <ol>
+                <li>Navigate to <span class="nav-path">Admin Sidebar → Agents</span>.</li>
+                <li>Click the <strong>"+ Add New Agent"</strong> button.</li>
+                <li>Fill in: Name, Email, Phone Number, Address, and Password.</li>
+                <li>A unique <strong>Referral Code</strong> is auto-generated for the agent.</li>
+                <li>Click <strong>"Create Agent"</strong> to save. The agent can now log in and start referring customers.</li>
+            </ol>
+        </div>
+
+        <div class="steps-box">
+            <div class="steps-title">How to View Agent Performance</div>
+            <ol>
+                <li>Go to <span class="nav-path">Admin → Agents</span> and click <strong>"View"</strong> on an agent.</li>
+                <li>See the agent's referral bookings, total sales, commission summary, and payment history.</li>
+                <li>Review the performance metrics to decide on commission payments.</li>
+            </ol>
+        </div>
+
+        <h3>7.6 Agent Commission Payments</h3>
+        
+        <p><strong>URL:</strong> <span class="url">https://londonabd.com/admin/agent-payments</span></p>
+        
+        <p>Record commission payments to agents for their referrals.</p>
+
+        <div class="steps-box">
+            <div class="steps-title">How to Record an Agent Commission Payment</div>
+            <ol>
+                <li>Navigate to <span class="nav-path">Admin Sidebar → Agent Payments</span>.</li>
+                <li>Click the <strong>"+ Record Agent Payment"</strong> button.</li>
+                <li>Select the <strong>Agent</strong> from the dropdown list.</li>
+                <li>Once an agent is selected, the <strong>Booking</strong> dropdown loads with all bookings referred by that agent.</li>
+                <li>Select the <strong>Booking</strong> for which the commission is being paid.</li>
+                <li>Enter the <strong>Commission Amount</strong>.</li>
+                <li>Add an optional <strong>Payment Note</strong> (e.g., payment method, reference number).</li>
+                <li>Click <strong>"Save Payment"</strong> to record the commission payment.</li>
+                <li>The agent automatically receives an <strong>SMS notification</strong> about the payment.</li>
+            </ol>
+        </div>
+
+        <div class="steps-box">
+            <div class="steps-title">How to View and Export Agent Payments</div>
+            <ol>
+                <li>Go to <span class="nav-path">Admin → Agent Payments</span>.</li>
+                <li>Use filters to narrow by <strong>Agent</strong> or <strong>Date Range</strong>.</li>
+                <li>Click <strong>"Export CSV"</strong> to download the agent payment data as a spreadsheet.</li>
+                <li>To delete an incorrect payment, click the <strong>"Delete"</strong> button on the payment row and confirm.</li>
+            </ol>
+        </div>
+
+        <div class="tip-box">
+            <strong>Tip:</strong> Before paying commission, check the agent's performance by viewing their profile in <span class="nav-path">Admin → Agents → View</span> to see all referral bookings and existing payments.
+        </div>
+
+        <h3>7.7 Platform Settings</h3>
+        
+        <p><strong>URL:</strong> <span class="url">https://londonabd.com/admin/settings</span></p>
+        
+        <p>Configure system settings and platform information.</p>
+
+        <div class="steps-box">
+            <div class="steps-title">How to Configure Email (SMTP) Settings</div>
+            <ol>
+                <li>Navigate to <span class="nav-path">Admin Sidebar → Platform Settings</span>.</li>
+                <li>In the <strong>Email Settings</strong> card, configure:
+                    <ul>
+                        <li><strong>From Name</strong> — The name shown in the recipient's inbox (e.g., "London Abason").</li>
+                        <li><strong>From Email</strong> — The sender email address.</li>
+                        <li><strong>SMTP Host</strong> — Your email server (e.g., smtp.gmail.com).</li>
+                        <li><strong>SMTP Port</strong> — Common ports: 587 (TLS), 465 (SSL), 25 (None).</li>
+                        <li><strong>Encryption</strong> — Select TLS, SSL, or None.</li>
+                        <li><strong>SMTP Username</strong> — Usually your email address.</li>
+                        <li><strong>SMTP Password</strong> — Your email password or app-specific password.</li>
+                    </ul>
+                </li>
+                <li>Click <strong>"Save Email Settings"</strong> to apply.</li>
+                <li>To verify your configuration, click <strong>"Send Test Email"</strong>, enter a recipient address, and check if it's received.</li>
+            </ol>
+        </div>
+
+        <div class="tip-box">
+            <strong>Gmail Tip:</strong> If using Gmail, you must generate an <strong>App Password</strong> (not your regular password). Go to Google Account → Security → 2-Step Verification → App Passwords.
+        </div>
+
+        <div class="steps-box">
+            <div class="steps-title">How to Configure Notification Emails</div>
+            <ol>
+                <li>In the <strong>Notification Emails</strong> card, configure:
+                    <ul>
+                        <li><strong>Support Email</strong> — Shown to customers for inquiries.</li>
+                        <li><strong>Admin Email</strong> — Receives system alerts and admin notifications.</li>
+                        <li><strong>Booking Notification Email</strong> — Receives alerts when new bookings are created.</li>
+                    </ul>
+                </li>
+                <li>Click <strong>"Save Platform Settings"</strong> to apply.</li>
+            </ol>
+        </div>
+
+        <div class="steps-box">
+            <div class="steps-title">How to Update Contact Details & Social Media</div>
+            <ol>
+                <li>Scroll down to the <strong>Contact Details</strong> card.</li>
+                <li>Update <strong>Phone Numbers</strong>: Primary, Secondary, and WhatsApp number.</li>
+                <li>Update <strong>Contact Emails</strong>: Info email and support email.</li>
+                <li>Update <strong>Office Details</strong>: Office address, office hours, Google Map embed URL, and Google Maps direct link.</li>
+                <li>Update <strong>Social Media Links</strong>: Facebook, Twitter/X, Instagram, YouTube, and LinkedIn URLs.</li>
+                <li>Click <strong>"Save Contact Settings"</strong> to apply all changes.</li>
+            </ol>
+        </div>
+
+        <div class="tip-box">
+            <strong>Google Maps Tip:</strong> To get the embed URL, go to Google Maps → search your location → click "Share" → "Embed a map" → copy the <code>src</code> attribute from the iframe code.
+        </div>
+
+        <h3>7.8 Reports & Analytics</h3>
+
+        <p>Generate detailed reports with custom filters for data-driven decision making.</p>
+
+        <div class="steps-box">
+            <div class="steps-title">How to Generate Reports</div>
+            <ol>
+                <li>Navigate to <span class="nav-path">Admin Sidebar → Reports</span>.</li>
+                <li>Select the report type: <strong>Plots</strong>, <strong>Bookings</strong>, <strong>Payments</strong>, or <strong>Agents</strong>.</li>
+                <li>Apply filters (e.g., date range, status, block, agent) based on the report type.</li>
+                <li>Click <strong>"Generate Report"</strong> to view the results.</li>
+                <li>The report displays summarized data with totals and charts where applicable.</li>
+                <li>Use the <strong>"Print"</strong> or <strong>"Export"</strong> option to download the report.</li>
+            </ol>
+        </div>
+
+        <h4>Available Report Types:</h4>
+        <table>
+            <tr>
+                <th>Report</th>
+                <th>URL</th>
+                <th>What It Shows</th>
+            </tr>
+            <tr>
+                <td>Plot Report</td>
+                <td>admin/reports/plots</td>
+                <td>Plot inventory, availability, pricing summary</td>
+            </tr>
+            <tr>
+                <td>Booking Report</td>
+                <td>admin/reports/bookings</td>
+                <td>Booking trends, status distribution, customer data</td>
+            </tr>
+            <tr>
+                <td>Payment Report</td>
+                <td>admin/reports/payments</td>
+                <td>Revenue collection, payment types, outstanding amounts</td>
+            </tr>
+            <tr>
+                <td>Agent Report</td>
+                <td>admin/reports/agents</td>
+                <td>Agent performance, referrals, commission payments</td>
+            </tr>
+        </table>
+    </div>
+
+    <hr class="divider">
+
+    <!-- 8. Payment System -->
+    <div class="section" id="payment-system">
+        <h2>8. PAYMENT & INSTALLMENT SYSTEM</h2>
+
+        <p>The platform supports flexible payment options including booking payments and structured installment plans (Monthly/Quarterly).</p>
+
+        <h3>8.1 Payment Structure</h3>
+
+        <table>
+            <tr>
+                <th>Stage</th>
+                <th>Description</th>
+                <th>Typical Amount</th>
+            </tr>
+            <tr>
+                <td>1. Booking Payment</td>
+                <td>Initial payment to secure plot reservation</td>
+                <td>10-30% of Total Price</td>
+            </tr>
+            <tr>
+                <td>2. Installments</td>
+                <td>Regular scheduled payments over agreed period</td>
+                <td>Monthly / Quarterly</td>
+            </tr>
+            <tr>
+                <td>3. Final Payment</td>
+                <td>Complete remaining balance to finalize ownership</td>
+                <td>Outstanding Balance</td>
+            </tr>
+        </table>
+
+        <h3>8.2 Installment Plans</h3>
+
+        <h4>Monthly Plan:</h4>
+        <p>Pay in equal monthly installments over the agreed period.</p>
+        <ul>
+            <li>Fixed monthly amount</li>
+            <li>Flexible tenure (12-60 months)</li>
+            <li>Auto-calculated payments</li>
+            <li>SMS payment reminders</li>
+        </ul>
+
+        <h4>Quarterly Plan:</h4>
+        <p>Pay every three months with larger installment amounts.</p>
+        <ul>
+            <li>Quarterly payment schedule</li>
+            <li>Lower number of transactions</li>
+            <li>Larger per-payment amount</li>
+            <li>Due date notifications</li>
+        </ul>
+
+        <h3>8.3 Payment Tracking & Progress</h3>
+
+        <h4>What Customers Can Track:</h4>
+        <ul>
+            <li>Total Paid Amount: Sum of all payments made to date</li>
+            <li>Outstanding Balance: Remaining amount to be paid</li>
+            <li>Paid Installments: Number of installments completed</li>
+            <li>Pending Installments: Remaining installments to pay</li>
+            <li>Next Due Date: Date of next installment payment</li>
+            <li>Payment Progress: Percentage of total amount paid</li>
+        </ul>
+
+        <h3>8.4 Invoices & Payment Receipts</h3>
+
+        <h4>Invoice Generation:</h4>
+        <p>Every payment generates a professional PDF invoice that includes:</p>
+        <ul>
+            <li>Company logo and details</li>
+            <li>Customer information</li>
+            <li>Invoice number and date</li>
+            <li>Plot details</li>
+            <li>Booking reference</li>
+            <li>Payment breakdown</li>
+            <li>Amount paid in this transaction</li>
+            <li>Total paid to date</li>
+            <li>Outstanding balance</li>
+            <li>Remaining installments (if applicable)</li>
+        </ul>
+
+        <h4>Accessing Invoices:</h4>
+        
+        <div class="steps-box">
+            <div class="steps-title">How to Access Invoices (Customer)</div>
+            <ol>
+                <li>Log in and go to <span class="nav-path">My Account → Payments</span>.</li>
+                <li>Find the payment you need an invoice for.</li>
+                <li>Click the <strong>"Download Invoice"</strong> button.</li>
+                <li>The PDF auto-downloads to your device.</li>
+            </ol>
+        </div>
+
+        <div class="steps-box">
+            <div class="steps-title">How to Access Invoices (Admin)</div>
+            <ol>
+                <li>Go to <span class="nav-path">Admin → Payments</span>.</li>
+                <li>Find the payment record (use search or filters if needed).</li>
+                <li>Click the <strong>"Invoice"</strong> button (printer icon).</li>
+                <li>The invoice page opens in a new tab with print-ready layout.</li>
+                <li>Click <strong>"Print"</strong> to print or save as PDF.</li>
+            </ol>
+        </div>
+
+        <h4>SMS Notifications:</h4>
+        <p>Customers automatically receive SMS notifications for:</p>
+        <ul>
+            <li>Payment confirmations</li>
+            <li>Upcoming due dates</li>
+            <li>Payment reminders</li>
+            <li>Outstanding balance alerts</li>
+        </ul>
+    </div>
+
+    <hr class="divider">
+
+    <!-- 9. Troubleshooting -->
+    <div class="section" id="troubleshooting">
+        <h2>9. TROUBLESHOOTING & FAQ</h2>
+
+        <h3>9.1 Login & Access Issues</h3>
+
+        <p><strong>Q: I forgot my password. How do I reset it?</strong></p>
+        <p>A: Click "Forgot Password" on the login page, enter your registered phone number, verify the OTP sent via SMS, and create a new password.</p>
+
+        <p><strong>Q: I'm not receiving the OTP code.</strong></p>
+        <p>A: Check the following:</p>
+        <ul>
+            <li>Verify your phone number is correct</li>
+            <li>Check your phone's SMS inbox and spam folder</li>
+            <li>Ensure you have mobile network coverage</li>
+            <li>Click "Resend OTP" to request a new code</li>
+            <li>Contact support if the issue persists</li>
+        </ul>
+
+        <p><strong>Q: My account is locked/disabled.</strong></p>
+        <p>A: Contact the administrator to reactivate your account. Your account may have been temporarily disabled for security or administrative reasons.</p>
+
+        <h3>9.2 Booking & Plot Issues</h3>
+
+        <p><strong>Q: The plot I want to book shows as unavailable.</strong></p>
+        <p>A: The plot may be already booked by another customer or temporarily reserved. Contact the sales team for alternative options or to check if the plot will become available.</p>
+
+        <p><strong>Q: How long does it take for my booking to be confirmed?</strong></p>
+        <p>A: Bookings are typically confirmed within 24-48 hours after submission. You'll receive an SMS notification once your booking is approved by the admin.</p>
+
+        <p><strong>Q: Can I cancel or change my booking?</strong></p>
+        <p>A: Contact the administrator to request booking modifications or cancellations. Cancellation policies and refund terms will be communicated by the admin team.</p>
+
+        <h3>9.3 Payment Issues</h3>
+
+        <p><strong>Q: I made a payment but it's not showing in my account.</strong></p>
+        <p>A: Payment updates may take a few hours to reflect. The admin team records payments manually after receiving them. If it's been more than 24 hours, contact the admin with your payment proof.</p>
+
+        <p><strong>Q: How can I download my payment invoice?</strong></p>
+        <p>A: Go to My Account → Payments, find the payment record, and click the "Download Invoice" button. The invoice will be generated as a PDF.</p>
+
+        <p><strong>Q: What payment methods are accepted?</strong></p>
+        <p>A: Contact the sales team for available payment methods. Typically, payments can be made via bank transfer, cash payment at office, or mobile banking.</p>
+
+        <p><strong>Q: When is my next installment due?</strong></p>
+        <p>A: Check your customer dashboard for the "Next Due Date" information. You'll also receive SMS reminders before the due date.</p>
+
+        <h3>9.4 Technical Issues</h3>
+
+        <p><strong>Q: The website is not loading properly.</strong></p>
+        <p>A: Try the following steps:</p>
+        <ul>
+            <li>Clear your browser cache and cookies</li>
+            <li>Try a different browser (Chrome, Firefox, Safari)</li>
+            <li>Check your internet connection</li>
+            <li>Disable browser extensions temporarily</li>
+            <li>Update your browser to the latest version</li>
+        </ul>
+
+        <p><strong>Q: Images are not displaying correctly.</strong></p>
+        <p>A: This may be due to slow internet connection or browser cache issues. Try refreshing the page or clearing your browser cache.</p>
+
+        <p><strong>Q: The website is slow to respond.</strong></p>
+        <p>A: Check your internet speed. If the problem persists across different networks, it may be a server issue. Contact technical support.</p>
+
+        <h3>9.5 Need More Help?</h3>
+
+        <p>If you can't find the answer to your question here, please contact our support team:</p>
+        <ul>
+            <li>Call our customer service</li>
+            <li>Send an email inquiry</li>
+            <li>Fill out the contact form</li>
+            <li>Visit our office</li>
+        </ul>
+    </div>
+
+    <hr class="divider">
+
+    <!-- 10. Contact -->
+    <div class="section" id="contact">
+        <h2>10. CONTACT & SUPPORT</h2>
+
+        <p>Need help? Our support team is here to assist you with any questions or issues you may encounter.</p>
+
+        <h3>10.1 Contact Methods</h3>
+
+        <table>
+            <tr>
+                <th>Method</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td>Phone Support</td>
+                <td>Call during business hours for immediate assistance</td>
+            </tr>
+            <tr>
+                <td>Email Support</td>
+                <td>Send detailed inquiries via email</td>
+            </tr>
+            <tr>
+                <td>Office Visit</td>
+                <td>Visit our office for in-person assistance</td>
+            </tr>
+            <tr>
+                <td>Contact Form</td>
+                <td>Fill out the online form at https://londonabd.com/contact</td>
+            </tr>
+        </table>
+
+        <h3>10.2 Quick Links</h3>
+
+        <ul>
+            <li>Homepage: <span class="url">https://londonabd.com/</span></li>
+            <li>Browse Plots: <span class="url">https://londonabd.com/plots</span></li>
+            <li>About Us: <span class="url">https://londonabd.com/about</span></li>
+            <li>FAQ: <span class="url">https://londonabd.com/faq</span></li>
+            <li>Contact: <span class="url">https://londonabd.com/contact</span></li>
+            <li>Login / Register: <span class="url">https://londonabd.com/login</span></li>
+        </ul>
+
+        <h3>10.3 Important Notes</h3>
+
+        <div class="info-box">
+            <strong>Security Reminders:</strong>
+            <ul>
+                <li>Always keep your login credentials secure and confidential</li>
+                <li>Verify payment details before making any transactions</li>
+                <li>Keep proof of all payments made</li>
+                <li>Report any suspicious activity immediately</li>
+                <li>Contact support for any questions or clarifications</li>
+            </ul>
+        </div>
+
+        <h3>10.4 Business Hours</h3>
+        <p>Contact the office for specific timing details and support availability.</p>
+    </div>
+
+    <hr class="divider">
+
+    <!-- Footer -->
+    <div class="footer">
+        <p><strong>END OF DOCUMENT</strong></p>
+        <p>London Abason Real Estate Platform - User Manual</p>
+        <p>Version 2.0 | March 2026</p>
+        <p>&copy; 2026 London Abason. All rights reserved.</p>
+        <p>Website: https://londonabd.com/</p>
+    </div>
+
+</body>
+</html>
