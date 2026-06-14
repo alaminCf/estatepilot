@@ -14,7 +14,7 @@ class CheckPermission
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next, string $permission): Response
+    public function handle(Request $request, Closure $next, string $permission, ?string $action = null): Response
     {
         $user = Auth::user();
 
@@ -22,7 +22,11 @@ class CheckPermission
             abort(403);
         }
 
-        if (!$user->hasPermission($permission)) {
+        // When an action is supplied (e.g. "manage_plots", "add") require the
+        // granular "module.action" permission; otherwise check section access.
+        $required = $action ? "{$permission}.{$action}" : $permission;
+
+        if (!$user->hasPermission($required)) {
             abort(403, 'You do not have permission to access this section.');
         }
 

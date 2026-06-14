@@ -34,7 +34,8 @@ class PlatformUserController extends Controller
     public function create()
     {
         $permissions = User::PERMISSIONS;
-        return view('Accounts.Admin.platform-users.edit', compact('permissions'));
+        $actions = User::PERMISSION_ACTIONS;
+        return view('Accounts.Admin.platform-users.edit', compact('permissions', 'actions'));
     }
 
     public function store(Request $request)
@@ -46,7 +47,7 @@ class PlatformUserController extends Controller
             'password' => 'required|string|min:6|confirmed',
             'status' => 'required|in:active,inactive',
             'permissions' => 'nullable|array',
-            'permissions.*' => 'in:' . implode(',', array_keys(User::PERMISSIONS)),
+            'permissions.*' => 'in:' . implode(',', User::allPermissions()),
             'photo' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 
@@ -76,7 +77,8 @@ class PlatformUserController extends Controller
     {
         $user = $platform_user;
         $permissions = User::PERMISSIONS;
-        return view('Accounts.Admin.platform-users.edit', compact('user', 'permissions'));
+        $actions = User::PERMISSION_ACTIONS;
+        return view('Accounts.Admin.platform-users.edit', compact('user', 'permissions', 'actions'));
     }
 
     public function update(Request $request, User $platform_user)
@@ -88,7 +90,7 @@ class PlatformUserController extends Controller
             'password' => 'nullable|string|min:6|confirmed',
             'status' => 'required|in:active,inactive',
             'permissions' => 'nullable|array',
-            'permissions.*' => 'in:' . implode(',', array_keys(User::PERMISSIONS)),
+            'permissions.*' => 'in:' . implode(',', User::allPermissions()),
             'photo' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 

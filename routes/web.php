@@ -96,48 +96,86 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
 
     // Plot Management
     Route::middleware('permission:manage_plots')->group(function () {
-        Route::resource('plots', PlotController::class);
-        Route::patch('plots/{plot}/update-status', [PlotController::class, 'updateStatus'])->name('plots.update-status');
+        Route::resource('plots', PlotController::class)
+            ->middlewareFor(['index', 'show'], 'permission:manage_plots,view')
+            ->middlewareFor(['create', 'store'], 'permission:manage_plots,add')
+            ->middlewareFor(['edit', 'update'], 'permission:manage_plots,edit')
+            ->middlewareFor('destroy', 'permission:manage_plots,delete');
+        Route::patch('plots/{plot}/update-status', [PlotController::class, 'updateStatus'])
+            ->middleware('permission:manage_plots,edit')->name('plots.update-status');
     });
 
     // Booking Management
     Route::middleware('permission:manage_bookings')->group(function () {
-        Route::get('bookings/export', [BookingController::class, 'export'])->name('bookings.export');
-        Route::patch('bookings/{booking}/update-quick', [BookingController::class, 'updateQuick'])->name('bookings.update-quick');
-        Route::patch('bookings/{booking}/update-booking-date', [BookingController::class, 'updateBookingDate'])->name('bookings.update-booking-date');
-        Route::patch('bookings/{booking}/change-agent', [BookingController::class, 'changeAgent'])->name('bookings.change-agent');
-        Route::patch('bookings/{booking}/update-owners', [BookingController::class, 'updateOwners'])->name('bookings.update-owners');
-        Route::patch('bookings/{booking}/update-id', [BookingController::class, 'updateBookingId'])->name('bookings.update-id');
-        Route::resource('bookings', BookingController::class)->except(['edit']);
+        Route::get('bookings/export', [BookingController::class, 'export'])
+            ->middleware('permission:manage_bookings,view')->name('bookings.export');
+        Route::patch('bookings/{booking}/update-quick', [BookingController::class, 'updateQuick'])
+            ->middleware('permission:manage_bookings,edit')->name('bookings.update-quick');
+        Route::patch('bookings/{booking}/update-booking-date', [BookingController::class, 'updateBookingDate'])
+            ->middleware('permission:manage_bookings,edit')->name('bookings.update-booking-date');
+        Route::patch('bookings/{booking}/change-agent', [BookingController::class, 'changeAgent'])
+            ->middleware('permission:manage_bookings,edit')->name('bookings.change-agent');
+        Route::patch('bookings/{booking}/update-owners', [BookingController::class, 'updateOwners'])
+            ->middleware('permission:manage_bookings,edit')->name('bookings.update-owners');
+        Route::patch('bookings/{booking}/update-id', [BookingController::class, 'updateBookingId'])
+            ->middleware('permission:manage_bookings,edit')->name('bookings.update-id');
+        Route::resource('bookings', BookingController::class)->except(['edit'])
+            ->middlewareFor(['index', 'show'], 'permission:manage_bookings,view')
+            ->middlewareFor(['create', 'store'], 'permission:manage_bookings,add')
+            ->middlewareFor('update', 'permission:manage_bookings,edit')
+            ->middlewareFor('destroy', 'permission:manage_bookings,delete');
     });
 
     // Users Management
     Route::middleware('permission:manage_customers')->group(function () {
-        Route::resource('users', UserController::class);
-        Route::patch('users/{user}/change-id', [UserController::class, 'changeId'])->name('users.change-id');
+        Route::resource('users', UserController::class)
+            ->middlewareFor(['index', 'show'], 'permission:manage_customers,view')
+            ->middlewareFor(['create', 'store'], 'permission:manage_customers,add')
+            ->middlewareFor(['edit', 'update'], 'permission:manage_customers,edit')
+            ->middlewareFor('destroy', 'permission:manage_customers,delete');
+        Route::patch('users/{user}/change-id', [UserController::class, 'changeId'])
+            ->middleware('permission:manage_customers,edit')->name('users.change-id');
     });
 
     // Commission Users Management
     Route::middleware('permission:manage_commission_users')->group(function () {
-        Route::resource('commission-users', CommissionUserController::class);
+        Route::resource('commission-users', CommissionUserController::class)
+            ->middlewareFor(['index', 'show'], 'permission:manage_commission_users,view')
+            ->middlewareFor(['create', 'store'], 'permission:manage_commission_users,add')
+            ->middlewareFor(['edit', 'update'], 'permission:manage_commission_users,edit')
+            ->middlewareFor('destroy', 'permission:manage_commission_users,delete');
 
         // Commission Payouts Management
-        Route::get('commission-payouts', [CommissionPayoutController::class, 'index'])->name('commission-payouts.index');
-        Route::get('commission-payouts/export', [CommissionPayoutController::class, 'export'])->name('commission-payouts.export');
-        Route::get('commission-payouts/create', [CommissionPayoutController::class, 'create'])->name('commission-payouts.create');
-        Route::post('commission-payouts', [CommissionPayoutController::class, 'store'])->name('commission-payouts.store');
-        Route::delete('commission-payouts/{commissionPayout}', [CommissionPayoutController::class, 'destroy'])->name('commission-payouts.destroy');
-        Route::get('commission-payouts/balance/{user}', [CommissionPayoutController::class, 'balance'])->name('commission-payouts.balance');
+        Route::get('commission-payouts', [CommissionPayoutController::class, 'index'])
+            ->middleware('permission:manage_commission_users,view')->name('commission-payouts.index');
+        Route::get('commission-payouts/export', [CommissionPayoutController::class, 'export'])
+            ->middleware('permission:manage_commission_users,view')->name('commission-payouts.export');
+        Route::get('commission-payouts/create', [CommissionPayoutController::class, 'create'])
+            ->middleware('permission:manage_commission_users,add')->name('commission-payouts.create');
+        Route::post('commission-payouts', [CommissionPayoutController::class, 'store'])
+            ->middleware('permission:manage_commission_users,add')->name('commission-payouts.store');
+        Route::delete('commission-payouts/{commissionPayout}', [CommissionPayoutController::class, 'destroy'])
+            ->middleware('permission:manage_commission_users,delete')->name('commission-payouts.destroy');
+        Route::get('commission-payouts/balance/{user}', [CommissionPayoutController::class, 'balance'])
+            ->middleware('permission:manage_commission_users,view')->name('commission-payouts.balance');
     });
 
     // Payments Management
     Route::middleware('permission:manage_payments')->group(function () {
-        Route::get('payments/export', [PaymentController::class, 'export'])->name('payments.export');
-        Route::get('payments/search-bookings', [PaymentController::class, 'searchBookings'])->name('payments.search-bookings');
-        Route::get('payments/booking-details/{booking}', [PaymentController::class, 'getBookingDetails'])->name('payments.booking-details');
-        Route::get('payments/{payment}/invoice', [PaymentController::class, 'invoice'])->name('payments.invoice');
-        Route::patch('payments/{payment}/update-date', [PaymentController::class, 'updateDate'])->name('payments.update-date');
-        Route::resource('payments', PaymentController::class)->except(['edit', 'update']);
+        Route::get('payments/export', [PaymentController::class, 'export'])
+            ->middleware('permission:manage_payments,view')->name('payments.export');
+        Route::get('payments/search-bookings', [PaymentController::class, 'searchBookings'])
+            ->middleware('permission:manage_payments,add')->name('payments.search-bookings');
+        Route::get('payments/booking-details/{booking}', [PaymentController::class, 'getBookingDetails'])
+            ->middleware('permission:manage_payments,add')->name('payments.booking-details');
+        Route::get('payments/{payment}/invoice', [PaymentController::class, 'invoice'])
+            ->middleware('permission:manage_payments,view')->name('payments.invoice');
+        Route::patch('payments/{payment}/update-date', [PaymentController::class, 'updateDate'])
+            ->middleware('permission:manage_payments,edit')->name('payments.update-date');
+        Route::resource('payments', PaymentController::class)->except(['edit', 'update'])
+            ->middlewareFor(['index', 'show'], 'permission:manage_payments,view')
+            ->middlewareFor(['create', 'store'], 'permission:manage_payments,add')
+            ->middlewareFor('destroy', 'permission:manage_payments,delete');
     });
     
     // Profile Settings (always accessible)
@@ -147,18 +185,27 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     
     // Platform Settings
     Route::middleware('permission:manage_settings')->group(function () {
-        Route::get('/settings', [App\Http\Controllers\Admin\SettingController::class, 'index'])->name('settings.index');
-        Route::put('/settings/email', [App\Http\Controllers\Admin\SettingController::class, 'updateEmail'])->name('settings.update-email');
-        Route::post('/settings/email/test', [App\Http\Controllers\Admin\SettingController::class, 'testEmail'])->name('settings.test-email');
-        Route::put('/settings/platform', [App\Http\Controllers\Admin\SettingController::class, 'updatePlatform'])->name('settings.update-platform');
-        Route::put('/settings/contact', [App\Http\Controllers\Admin\SettingController::class, 'updateContact'])->name('settings.update-contact');
+        Route::get('/settings', [App\Http\Controllers\Admin\SettingController::class, 'index'])
+            ->middleware('permission:manage_settings,view')->name('settings.index');
+        Route::put('/settings/email', [App\Http\Controllers\Admin\SettingController::class, 'updateEmail'])
+            ->middleware('permission:manage_settings,edit')->name('settings.update-email');
+        Route::post('/settings/email/test', [App\Http\Controllers\Admin\SettingController::class, 'testEmail'])
+            ->middleware('permission:manage_settings,edit')->name('settings.test-email');
+        Route::put('/settings/platform', [App\Http\Controllers\Admin\SettingController::class, 'updatePlatform'])
+            ->middleware('permission:manage_settings,edit')->name('settings.update-platform');
+        Route::put('/settings/contact', [App\Http\Controllers\Admin\SettingController::class, 'updateContact'])
+            ->middleware('permission:manage_settings,edit')->name('settings.update-contact');
 
         // Platform User Management
-        Route::resource('platform-users', PlatformUserController::class)->except(['show']);
+        Route::resource('platform-users', PlatformUserController::class)->except(['show'])
+            ->middlewareFor('index', 'permission:manage_settings,view')
+            ->middlewareFor(['create', 'store'], 'permission:manage_settings,add')
+            ->middlewareFor(['edit', 'update'], 'permission:manage_settings,edit')
+            ->middlewareFor('destroy', 'permission:manage_settings,delete');
     });
 
-    // Reports
-    Route::middleware('permission:manage_reports')->group(function () {
+    // Reports (read-only — gated by the view action)
+    Route::middleware(['permission:manage_reports', 'permission:manage_reports,view'])->group(function () {
         Route::get('reports/plots', [App\Http\Controllers\Admin\ReportController::class, 'plotsFilter'])->name('reports.plots');
         Route::get('reports/plots/generate', [App\Http\Controllers\Admin\ReportController::class, 'plotsReport'])->name('reports.plots.generate');
         Route::get('reports/bookings', [App\Http\Controllers\Admin\ReportController::class, 'bookingsFilter'])->name('reports.bookings');

@@ -86,10 +86,9 @@
 						<td><span class="text-md mb-0 fw-normal text-secondary-light">{{ $user->email }}</span></td>
 						<td><span class="text-md mb-0 fw-normal text-secondary-light">{{ $user->phone ?? 'N/A' }}</span></td>
 						<td>
-							<div class="d-flex flex-wrap gap-1">
-								@php $userPerms = $user->permissions ?? []; @endphp
-								@forelse($userPerms as $perm)
-									<span class="bg-primary-50 text-primary-600 border border-primary-200 px-8 py-2 radius-4 fw-medium text-xs">{{ \App\Models\User::PERMISSIONS[$perm] ?? $perm }}</span>
+							<div class="d-flex flex-column gap-1">
+																@forelse($user->groupedPermissions() as $moduleLabel => $actionLabels)
+									<span class="bg-primary-50 text-primary-600 border border-primary-200 px-8 py-2 radius-4 fw-medium text-xs">{{ $moduleLabel }}: {{ implode(', ', $actionLabels) }}</span>
 								@empty
 									<span class="text-secondary-light text-sm">No permissions</span>
 								@endforelse

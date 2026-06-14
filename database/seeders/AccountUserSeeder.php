@@ -20,7 +20,7 @@ class AccountUserSeeder extends Seeder
             'phone' => '01712345678',
             'password' => Hash::make('@Admin#2026'),
             'role' => 'admin',
-            'permissions' => array_keys(User::PERMISSIONS),
+            'permissions' => User::allPermissions(),
             'email_verified_at' => now(),
         ]);
 

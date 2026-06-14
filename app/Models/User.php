@@ -85,7 +85,7 @@ class User extends Authenticatable
     }
 
     /**
-     * All available CRM permissions
+     * All available CRM permission modules (sections).
      */
     public const PERMISSIONS = [
         'manage_plots' => 'Manage Plots',
@@ -98,16 +98,104 @@ class User extends Authenticatable
     ];
 
     /**
-     * Check if user has a specific permission
+     * Granular actions available for each permission module.
+     */
+    public const PERMISSION_ACTIONS = [
+        'view' => 'View',
+        'add' => 'Add',
+        'edit' => 'Edit',
+        'delete' => 'Delete',
+    ];
+
+    /**
+     * Every assignable "module.action" permission key.
+     *
+     * @return list<string>
+     */
+    public static function allPermissions(): array
+    {
+        $all = [];
+
+        foreach (array_keys(self::PERMISSIONS) as $module) {
+            foreach (array_keys(self::PERMISSION_ACTIONS) as $action) {
+                $all[] = "{$module}.{$action}";
+            }
+        }
+
+        return $all;
+    }
+
+    /**
+     * Check if the user has a specific permission.
+     *
+     * Accepts either a module key ("manage_plots") for section-level access
+     * or a granular "module.action" key ("manage_plots.add"). A module is
+     * considered accessible when the user holds at least one of its actions.
+     * Legacy bare module keys grant every action of that module.
      */
     public function hasPermission(string $permission): bool
     {
-        // Super admin (id=1) always has all permissions
+        // Super admin (id=1) always has all permissions.
         if ($this->id === 1) {
             return true;
         }
 
-        return in_array($permission, $this->permissions ?? []);
+        $permissions = $this->permissions ?? [];
+
+        // Exact match (granular "module.action" or legacy bare module key).
+        if (in_array($permission, $permissions, true)) {
+            return true;
+        }
+
+        if (str_contains($permission, '.')) {
+            // Granular check: a stored legacy bare module key implies all actions.
+            $module = strtok($permission, '.');
+
+            return in_array($module, $permissions, true);
+        }
+
+        // Section-level check: accessible if any action of the module is granted.
+        foreach ($permissions as $granted) {
+            if (str_starts_with($granted, "{$permission}.")) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Convenience check for a granular module action (View/Add/Edit/Delete).
+     */
+    public function canDo(string $module, ?string $action = null): bool
+    {
+        if ($action === null) {
+            return $this->hasPermission($module);
+        }
+
+        return $this->hasPermission("{$module}.{$action}");
+    }
+
+    /**
+     * Permissions grouped by module label for display, e.g.
+     * ['Manage Plots' => ['View', 'Add'], ...].
+     *
+     * @return array<string, list<string>>
+     */
+    public function groupedPermissions(): array
+    {
+        $grouped = [];
+
+        foreach ($this->permissions ?? [] as $permission) {
+            [$module, $action] = array_pad(explode('.', $permission, 2), 2, null);
+
+            $moduleLabel = self::PERMISSIONS[$module] ?? $module;
+            $actionLabel = $action ? (self::PERMISSION_ACTIONS[$action] ?? $action) : 'All';
+
+            $grouped[$moduleLabel][] = $actionLabel;
+        }
+
+        return $grouped;
     }
 
     /**

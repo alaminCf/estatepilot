@@ -73,7 +73,7 @@
                             Installment Receipt
                         @endif
                     </h1>
-                    <p class="text-sm text-gray-700 font-semibold">#{{ str_pad($payment->id, 6, '0', STR_PAD_LEFT) }}</p>
+                    <p class="text-sm text-gray-700 font-semibold">Invoice ID: {{ str_pad($payment->id, 6, '0', STR_PAD_LEFT) }}</p>
                     <p class="text-xs text-gray-500">{{ $payment->created_at->format('d F Y, h:i A') }}</p>
                 </div>
             </div>

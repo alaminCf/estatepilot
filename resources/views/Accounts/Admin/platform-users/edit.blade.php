@@ -125,28 +125,64 @@
 
 							<!-- Permissions -->
 							<div class="mb-20">
-								<label class="form-label fw-semibold text-primary-light text-sm mb-12">Permissions</label>
-								<div class="border radius-8 p-16">
-									<div class="row g-3">
-										@php $userPerms = old('permissions', isset($user) ? ($user->permissions ?? []) : []); @endphp
-										@foreach($permissions as $key => $label)
-										<div class="col-sm-6">
-											<div class="form-check d-flex align-items-center gap-8">
-												<input class="form-check-input flex-shrink-0" type="checkbox" name="permissions[]" value="{{ $key }}" id="perm_{{ $key }}" {{ in_array($key, $userPerms) ? 'checked' : '' }}>
-												<label class="form-check-label fw-medium text-secondary-light text-sm" for="perm_{{ $key }}">
-													{{ $label }}
-												</label>
-											</div>
-										</div>
-										@endforeach
-									</div>
-									<div class="mt-12 pt-12 border-top">
-										<div class="form-check d-flex align-items-center gap-8">
-											<input class="form-check-input flex-shrink-0" type="checkbox" id="selectAll">
-											<label class="form-check-label fw-semibold text-primary-600 text-sm" for="selectAll">
-												Select All Permissions
-											</label>
-										</div>
+								<label class="form-label fw-semibold text-primary-light text-sm mb-12">Role Permissions</label>
+								@php $userPerms = old('permissions', isset($user) ? ($user->permissions ?? []) : []); @endphp
+								<div class="border radius-8 overflow-hidden">
+									<div class="table-responsive">
+										<table class="table table-borderless permissions-table mb-0">
+											<thead>
+												<tr class="bg-base">
+													<th class="text-sm fw-semibold text-primary-light ps-16">Module</th>
+													@foreach($actions as $actionKey => $actionLabel)
+													<th class="text-sm fw-semibold text-primary-light text-center">
+														<div class="form-check d-flex flex-column align-items-center gap-1 m-0">
+															<input class="form-check-input perm-col-all" type="checkbox" data-action="{{ $actionKey }}" id="col_{{ $actionKey }}">
+															<label class="form-check-label text-xs" for="col_{{ $actionKey }}">{{ $actionLabel }}</label>
+														</div>
+													</th>
+													@endforeach
+												</tr>
+											</thead>
+											<tbody>
+												@foreach($permissions as $moduleKey => $moduleLabel)
+												<tr class="border-top">
+													<td class="ps-16">
+														<div class="form-check d-flex align-items-center gap-8 m-0">
+															<input class="form-check-input perm-row-all flex-shrink-0" type="checkbox" data-module="{{ $moduleKey }}" id="row_{{ $moduleKey }}">
+															<label class="form-check-label fw-medium text-secondary-light text-sm" for="row_{{ $moduleKey }}">
+																{{ \Illuminate\Support\Str::after($moduleLabel, 'Manage ') }}
+															</label>
+														</div>
+													</td>
+													@foreach($actions as $actionKey => $actionLabel)
+													@php $permValue = $moduleKey . '.' . $actionKey; @endphp
+													<td class="text-center">
+														<input class="form-check-input perm-check"
+															type="checkbox"
+															name="permissions[]"
+															value="{{ $permValue }}"
+															data-module="{{ $moduleKey }}"
+															data-action="{{ $actionKey }}"
+															aria-label="{{ $moduleLabel }} {{ $actionLabel }}"
+															{{ in_array($permValue, $userPerms) || in_array($moduleKey, $userPerms) ? 'checked' : '' }}>
+													</td>
+													@endforeach
+												</tr>
+												@endforeach
+											</tbody>
+											<tfoot>
+												<tr class="border-top bg-base">
+													<td class="ps-16" colspan="{{ count($actions) + 1 }}">
+														<div class="form-check d-flex align-items-center gap-8 m-0">
+															<input class="form-check-input flex-shrink-0" type="checkbox" id="selectAll">
+															<label class="form-check-label fw-semibold text-primary-600 text-sm" for="selectAll">
+																Select All Permissions
+															</label>
+														</div>
+													</td>
+												</tr>
+											</tfoot>
+										</table>
 									</div>
 								</div>
 							</div>
@@ -193,6 +229,22 @@
 		background-color: #f0f0f0;
 		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 24 24'%3E%3Cpath fill='%23ccc' d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E");
 	}
+	.permissions-table th,
+	.permissions-table td {
+		padding: 12px 8px;
+		vertical-align: middle;
+	}
+	.permissions-table tbody tr:hover {
+		background-color: var(--primary-50, #f4f6ff);
+	}
+	.permissions-table .form-check-input {
+		cursor: pointer;
+		margin: 0;
+	}
+	.permissions-table .perm-check {
+		width: 18px;
+		height: 18px;
+	}
 </style>
 @endpush
 
@@ -214,14 +266,54 @@
 		readURL(this);
 	});
 
-	// Select All Permissions
+	// ===== Permissions matrix (View / Add / Edit / Delete) =====
+	var $perm = $('.perm-check');
+
+	function syncState() {
+		// Per-row module state: checked while at least one action is selected,
+		// unchecked only when every action of the module is cleared. The
+		// indeterminate dash signals a partial selection.
+		$('.perm-row-all').each(function() {
+			var module = $(this).data('module');
+			var $cells = $perm.filter('[data-module="' + module + '"]');
+			var checked = $cells.filter(':checked').length;
+			$(this).prop('checked', checked > 0);
+			this.indeterminate = checked > 0 && checked < $cells.length;
+		});
+		// Per-column "all modules" state
+		$('.perm-col-all').each(function() {
+			var action = $(this).data('action');
+			var $cells = $perm.filter('[data-action="' + action + '"]');
+			$(this).prop('checked', $cells.length === $cells.filter(':checked').length);
+		});
+		// Master state
+		$('#selectAll').prop('checked', $perm.length === $perm.filter(':checked').length);
+	}
+
+	// Toggle a whole row (module)
+	$('.perm-row-all').change(function() {
+		var module = $(this).data('module');
+		$perm.filter('[data-module="' + module + '"]').prop('checked', this.checked);
+		syncState();
+	});
+
+	// Toggle a whole column (action)
+	$('.perm-col-all').change(function() {
+		var action = $(this).data('action');
+		$perm.filter('[data-action="' + action + '"]').prop('checked', this.checked);
+		syncState();
+	});
+
+	// Master toggle
 	$('#selectAll').change(function() {
-		$('input[name="permissions[]"]').prop('checked', this.checked);
+		$perm.prop('checked', this.checked);
+		syncState();
 	});
-	$('input[name="permissions[]"]').change(function() {
-		$('#selectAll').prop('checked', $('input[name="permissions[]"]').length === $('input[name="permissions[]"]:checked').length);
-	});
-	// Init select all state
-	$('#selectAll').prop('checked', $('input[name="permissions[]"]').length === $('input[name="permissions[]"]:checked').length);
+
+	// Any individual checkbox
+	$perm.change(syncState);
+
+	// Init
+	syncState();
 </script>
 @endpush
