@@ -325,9 +325,12 @@ class ReportController extends Controller
 
         $summary = [
             'total_count' => $payments->count(),
+            'total_value' => $payments->unique('booking_id')->sum(fn($p) => optional($p->booking)->price),
             'total_amount' => $payments->sum('amount'),
             'booking_payments' => $payments->where('payment_type', 'Booking Payment')->sum('amount'),
             'booking_payments_count' => $payments->where('payment_type', 'Booking Payment')->count(),
+            'down_payments' => $payments->where('payment_type', 'Down Payment')->sum('amount'),
+            'down_payments_count' => $payments->where('payment_type', 'Down Payment')->count(),
             'installment_payments' => $payments->where('payment_type', 'Installment Payment')->sum('amount'),
             'installment_payments_count' => $payments->where('payment_type', 'Installment Payment')->count(),
             'part_payments' => $payments->where('payment_type', 'Part Of Installment')->sum('amount'),

@@ -11,12 +11,23 @@
             <div class="text-xl font-bold text-gray-800">{{ $summary['total_count'] }}</div>
         </div>
         <div class="summary-box text-center">
-            <div class="text-gray-500 text-xs">Total Amount</div>
+            <div class="text-gray-500 text-xs">Total Value</div>
+            <div class="text-lg font-bold text-gray-800">৳{{ format_bd_number($summary['total_value'], 0) }}</div>
+        </div>
+        <div class="summary-box text-center">
+            <div class="text-gray-500 text-xs">Total Paid</div>
             <div class="text-lg font-bold text-green-600">৳{{ format_bd_number($summary['total_amount'], 0) }}</div>
         </div>
         <div class="summary-box text-center">
             <div class="text-gray-500 text-xs">Booking Payments ({{ $summary['booking_payments_count'] }})</div>
             <div class="text-lg font-bold text-blue-600">৳{{ format_bd_number($summary['booking_payments'], 0) }}</div>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-4 gap-3 mb-4">
+        <div class="summary-box text-center">
+            <div class="text-gray-500 text-xs">Down Payment ({{ $summary['down_payments_count'] }})</div>
+            <div class="text-lg font-bold text-teal-600">৳{{ format_bd_number($summary['down_payments'], 0) }}</div>
         </div>
         <div class="summary-box text-center">
             <div class="text-gray-500 text-xs">Installment ({{ $summary['installment_payments_count'] }})</div>
@@ -62,6 +73,8 @@
                 <td>
                     @if($payment->payment_type == 'Booking Payment')
                         <span class="badge" style="background:#dbeafe;color:#1e40af;">Booking</span>
+                    @elseif($payment->payment_type == 'Down Payment')
+                        <span class="badge" style="background:#ccfbf1;color:#115e59;">Down Payment</span>
                     @elseif($payment->payment_type == 'Installment Payment')
                         <span class="badge" style="background:#fef9c3;color:#854d0e;">Installment</span>
                     @else
