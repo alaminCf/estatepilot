@@ -5,7 +5,7 @@
 
 @section('content')
     <!-- Summary Section -->
-    <div class="grid grid-cols-4 gap-3 mb-4">
+    <div class="grid grid-cols-6 gap-3 mb-5">
         <div class="summary-box text-center">
             <div class="text-gray-500 text-xs">Total Payments</div>
             <div class="text-xl font-bold text-gray-800">{{ $summary['total_count'] }}</div>
@@ -22,9 +22,6 @@
             <div class="text-gray-500 text-xs">Booking Payments ({{ $summary['booking_payments_count'] }})</div>
             <div class="text-lg font-bold text-blue-600">৳{{ format_bd_number($summary['booking_payments'], 0) }}</div>
         </div>
-    </div>
-
-    <div class="grid grid-cols-4 gap-3 mb-4">
         <div class="summary-box text-center">
             <div class="text-gray-500 text-xs">Down Payment ({{ $summary['down_payments_count'] }})</div>
             <div class="text-lg font-bold text-teal-600">৳{{ format_bd_number($summary['down_payments'], 0) }}</div>
@@ -33,16 +30,13 @@
             <div class="text-gray-500 text-xs">Installment ({{ $summary['installment_payments_count'] }})</div>
             <div class="text-lg font-bold text-yellow-600">৳{{ format_bd_number($summary['installment_payments'], 0) }}</div>
         </div>
-    </div>
-
-    @if($summary['part_payments_count'] > 0)
-    <div class="grid grid-cols-4 gap-3 mb-5">
+        @if($summary['part_payments_count'] > 0)
         <div class="summary-box text-center">
             <div class="text-gray-500 text-xs">Part Payments ({{ $summary['part_payments_count'] }})</div>
             <div class="text-lg font-bold text-purple-600">৳{{ format_bd_number($summary['part_payments'], 0) }}</div>
         </div>
+        @endif
     </div>
-    @endif
 
     <!-- Data Table -->
     @if($payments->count() > 0)
