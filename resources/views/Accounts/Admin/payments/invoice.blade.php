@@ -186,7 +186,7 @@
                             <div class="grid grid-cols-3 gap-3 text-sm">
                                 <div class="text-center">
                                     <span class="block text-xs text-gray-500 uppercase">EMI Amount</span>
-                                    <span class="font-bold text-gray-800">৳{{ format_bd_number($invoiceExtra['emi_amount'], 2) }}</span>
+                                    <span class="font-bold text-gray-800">@include('partials.installment-amount', ['adjusted' => $invoiceExtra['emi_amount'], 'original' => $financialSummary['installment_payment'] ?? 0])</span>
                                 </div>
                                 <div class="text-center">
                                     <span class="block text-xs text-gray-500 uppercase">Paid So Far</span>
@@ -232,7 +232,7 @@
                                 </div>
                                 <div class="text-center">
                                     <span class="block text-xs text-gray-500 uppercase">EMI Rate</span>
-                                    <span class="font-bold text-gray-800">৳{{ format_bd_number($invoiceExtra['emi_amount'], 2) }}</span>
+                                    <span class="font-bold text-gray-800">@include('partials.installment-amount', ['adjusted' => $invoiceExtra['emi_amount'], 'original' => $financialSummary['installment_payment'] ?? 0])</span>
                                 </div>
                                 <div class="text-center">
                                     <span class="block text-xs text-gray-500 uppercase">Breakdown</span>

@@ -198,7 +198,7 @@
                                 <div class="px-4 py-3 text-center">
                                     <p class="text-xs text-gray-500 mb-1">Installment Amt</p>
                                     @if($booking->installment_payment)
-                                        <p class="text-sm font-bold text-gray-900">৳{{ format_bd_number($booking->installment_payment, 0) }}</p>
+                                        <p class="text-sm font-bold text-gray-900">@include('partials.installment-amount', ['adjusted' => $booking->adjusted_installment, 'original' => $booking->installment_payment, 'decimals' => 0])</p>
                                         <p class="text-[10px] text-gray-500">{{ ucfirst($booking->installment_plan ?? '') }}</p>
                                     @else
                                         <p class="text-sm font-semibold text-gray-400">N/A</p>

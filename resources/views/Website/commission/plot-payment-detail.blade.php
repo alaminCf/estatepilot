@@ -131,7 +131,7 @@
             <div class="bg-{{ $dueAmount > 0 ? 'red' : 'gray' }}-50 border border-{{ $dueAmount > 0 ? 'red' : 'gray' }}-200 rounded-lg px-4 py-3 text-center min-w-[130px]">
                 <p class="text-xs text-gray-500">Due Amount</p>
                 <p class="text-xl font-bold text-{{ $dueAmount > 0 ? 'red' : 'gray' }}-600">৳{{ format_bd_number($dueAmount, 0) }}</p>
-                <p class="text-xs text-gray-500">৳{{ format_bd_number($booking->installment_payment, 0) }}/installment</p>
+                <p class="text-xs text-gray-500">@include('partials.installment-amount', ['adjusted' => $booking->adjusted_installment, 'original' => $booking->installment_payment, 'decimals' => 0])/installment</p>
             </div>
         </div>
 

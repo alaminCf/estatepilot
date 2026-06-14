@@ -73,6 +73,37 @@ class Booking extends Model
     }
 
     /**
+     * Adjusted installment = outstanding balance / remaining installments.
+     *
+     * Mirrors the calculation used by the payment & invoice controllers so the
+     * "real" per-installment figure can be shown anywhere a booking is rendered.
+     * Requires the payments relation to be loaded; otherwise falls back to the
+     * original (configured) installment amount.
+     */
+    public function getAdjustedInstallmentAttribute(): float
+    {
+        $original = (float) $this->installment_payment;
+
+        if (! $this->relationLoaded('payments') || ! $this->total_installments) {
+            return $original;
+        }
+
+        $totalPaid = (float) $this->payments->sum('amount');
+        $paidInstallments = (int) $this->payments
+            ->whereIn('payment_type', ['Installment Payment', 'Part Of Installment'])
+            ->sum('instalment_quantity');
+
+        $remainingInstallments = max(0, ((int) $this->total_installments) - $paidInstallments);
+        if ($remainingInstallments <= 0) {
+            return $original;
+        }
+
+        $outstanding = (float) $this->price - $totalPaid;
+
+        return round($outstanding / $remainingInstallments, 2);
+    }
+
+    /**
      * Get the plot for this booking.
      */
     public function plot()

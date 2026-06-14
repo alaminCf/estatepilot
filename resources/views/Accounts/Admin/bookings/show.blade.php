@@ -521,7 +521,7 @@
                                     </div>
                                     <div class="installment-item">
                                         <span class="inst-label">Per Installment</span>
-                                        <span class="inst-value">৳{{ format_bd_number($booking->installment_payment, 2) }}</span>
+                                        <span class="inst-value">@include('partials.installment-amount', ['adjusted' => $booking->adjusted_installment, 'original' => $booking->installment_payment])</span>
                                     </div>
                                 </div>
                             </div>
