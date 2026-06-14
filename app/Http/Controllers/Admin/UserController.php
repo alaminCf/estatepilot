@@ -15,7 +15,12 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $query = User::where('role', 'user');
-        
+
+        // Client ID filter (accepts "CID-00003" or plain "3")
+        if ($request->filled('client_id')) {
+            $query->where('client_id', (int) preg_replace('/\D/', '', $request->client_id));
+        }
+
         // Search filter
         if ($request->search) {
             $search = $request->search;

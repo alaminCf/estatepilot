@@ -3,16 +3,10 @@
 @section('content')
 <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-24">
     <h6 class="fw-semibold mb-0">All Payments</h6>
-    <ul class="d-flex align-items-center gap-2">
-        <li class="fw-medium">
-            <a href="{{ route('admin.dashboard') }}" class="d-flex align-items-center gap-1 hover-text-primary">
-                <iconify-icon icon="solar:home-smile-angle-outline" class="icon text-lg"></iconify-icon>
-                Dashboard
-            </a>
-        </li>
-        <li>-</li>
-        <li class="fw-medium">Payments</li>
-    </ul>
+    <a href="{{ route('admin.payments.create') }}" class="btn btn-primary text-sm btn-sm px-12 py-12 radius-8 d-flex align-items-center gap-2">
+        <iconify-icon icon="ic:baseline-plus" class="icon text-xl line-height-1"></iconify-icon>
+        Add Payment
+    </a>
 </div>
 
 @if(session('success'))
@@ -23,8 +17,8 @@
 @endif
 
 <div class="card h-100 p-0 radius-12">
-    <div class="card-header border-bottom bg-base py-16 px-24 d-flex align-items-center flex-wrap gap-3 justify-content-between">
-        <form method="GET" action="{{ route('admin.payments.index') }}" class="d-flex align-items-center flex-wrap gap-3 flex-grow-1">
+    <div class="card-header border-bottom bg-base py-16 px-24">
+        <form method="GET" action="{{ route('admin.payments.index') }}" class="d-flex align-items-center flex-wrap gap-3">
             <span class="text-md fw-medium text-secondary-light mb-0">Show</span>
             <select class="form-select form-select-sm w-auto ps-12 py-6 radius-12 h-40-px" name="per_page" id="perPage">
                 <option value="10" {{ request('per_page') == 10 ? 'selected' : '' }}>10</option>
@@ -32,10 +26,10 @@
                 <option value="50" {{ request('per_page') == 50 ? 'selected' : '' }}>50</option>
                 <option value="100" {{ request('per_page') == 100 ? 'selected' : '' }}>100</option>
             </select>
-            <div class="navbar-search">
-                <input type="text" class="bg-base h-40-px w-auto" name="search" placeholder="Search" value="{{ request('search') }}">
-                <iconify-icon icon="ion:search-outline" class="icon"></iconify-icon>
-            </div>
+            <input type="text" class="form-control form-control-sm w-auto ps-12 py-6 radius-12 h-40-px filter-id-input" name="payment_id" placeholder="Payment ID" value="{{ request('payment_id') }}">
+            <input type="text" class="form-control form-control-sm w-auto ps-12 py-6 radius-12 h-40-px filter-id-input" name="booking_id" placeholder="Booking ID" value="{{ request('booking_id') }}">
+            <input type="text" class="form-control form-control-sm w-auto ps-12 py-6 radius-12 h-40-px filter-id-input" name="client_id" placeholder="Client ID" value="{{ request('client_id') }}">
+            <input type="text" class="form-control form-control-sm w-auto ps-12 py-6 radius-12 h-40-px filter-id-input" name="plot_no" placeholder="Plot No" value="{{ request('plot_no') }}">
             <input type="text" class="form-control w-auto ps-12 py-6 radius-12 h-40-px" name="date_range" id="dateRange" placeholder="Select Date Range" value="{{ request('date_from') && request('date_to') ? request('date_from') . ' to ' . request('date_to') : '' }}" readonly>
             <input type="hidden" name="date_from" id="dateFrom" value="{{ request('date_from') }}">
             <input type="hidden" name="date_to" id="dateTo" value="{{ request('date_to') }}">
@@ -50,19 +44,13 @@
                 <iconify-icon icon="material-symbols:filter-alt" class="icon"></iconify-icon>
                 Filter
             </button>
-            @if(request()->hasAny(['search', 'payment_type', 'per_page', 'date_from', 'date_to']))
+            @if(request()->hasAny(['payment_type', 'per_page', 'date_from', 'date_to', 'payment_id', 'booking_id', 'client_id', 'plot_no']))
             <a href="{{ route('admin.payments.index') }}" class="btn btn-sm btn-outline-danger px-12 py-6 radius-8">
                 <iconify-icon icon="material-symbols:filter-alt-off" class="icon"></iconify-icon>
                 Clear
             </a>
             @endif
         </form>
-        <div class="d-flex gap-2">
-            <a href="{{ route('admin.payments.create') }}" class="btn btn-primary text-sm btn-sm px-12 py-12 radius-8 d-flex align-items-center gap-2">
-                <iconify-icon icon="ic:baseline-plus" class="icon text-xl line-height-1"></iconify-icon>
-                Add Payment
-            </a>
-        </div>
     </div>
     <div class="card-body p-24">
         <div class="table-responsive scroll-sm">
@@ -166,6 +154,12 @@
 
 @push('styles')
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<style>
+    .filter-id-input { width: 130px; }
+    @media (max-width: 575.98px) {
+        .filter-id-input { width: 100%; flex: 1 1 100%; }
+    }
+</style>
 @endpush
 
 @push('scripts')

@@ -3,16 +3,10 @@
 @section('content')
 <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-24">
 	<h6 class="fw-semibold mb-0">All Plots</h6>
-	<ul class="d-flex align-items-center gap-2">
-		<li class="fw-medium">
-			<a href="{{ route('admin.dashboard') }}" class="d-flex align-items-center gap-1 hover-text-primary">
-				<iconify-icon icon="solar:home-smile-angle-outline" class="icon text-lg"></iconify-icon>
-				Dashboard
-			</a>
-		</li>
-		<li>-</li>
-		<li class="fw-medium">Plots</li>
-	</ul>
+	<a href="{{ route('admin.plots.create') }}" class="btn btn-primary text-sm btn-sm px-12 py-12 radius-8 d-flex align-items-center gap-2">
+		<iconify-icon icon="ic:baseline-plus" class="icon text-xl line-height-1"></iconify-icon>
+		Add New Plot
+	</a>
 </div>
 
 @if(session('success'))
@@ -30,7 +24,7 @@
 @endif
 
 <div class="card h-100 p-0 radius-12">
-	<div class="card-header border-bottom bg-base py-16 px-24 d-flex align-items-center flex-wrap gap-3 justify-content-between">
+	<div class="card-header border-bottom bg-base py-16 px-24">
 		<form method="GET" action="{{ route('admin.plots.index') }}" class="d-flex align-items-center flex-wrap gap-3" id="filterForm">
 			<span class="text-md fw-medium text-secondary-light mb-0">Show</span>
 			<select name="per_page" class="form-select form-select-sm w-auto ps-12 py-6 radius-12 h-40-px">
@@ -39,10 +33,7 @@
 				<option value="50" {{ request('per_page') == 50 ? 'selected' : '' }}>50</option>
 				<option value="100" {{ request('per_page') == 100 ? 'selected' : '' }}>100</option>
 			</select>
-			<div class="navbar-search">
-				<input type="text" class="bg-base h-40-px w-auto" name="search" placeholder="Search" value="{{ request('search') }}">
-				<iconify-icon icon="ion:search-outline" class="icon"></iconify-icon>
-			</div>
+			<input type="text" class="form-control form-control-sm w-auto ps-12 py-6 radius-12 h-40-px filter-id-input" name="plot_no" placeholder="Plot No" value="{{ request('plot_no') }}">
 			<select name="status" class="form-select form-select-sm w-auto ps-12 py-6 radius-12 h-40-px">
 				<option value="">All plots</option>
 				<option value="available" {{ request('status') == 'available' ? 'selected' : '' }}>Available plots</option>
@@ -54,17 +45,13 @@
 				<iconify-icon icon="material-symbols:filter-alt" class="icon"></iconify-icon>
 				Filter
 			</button>
-			@if(request()->hasAny(['search', 'status', 'per_page']))
+			@if(request()->hasAny(['status', 'per_page', 'plot_no']))
 			<a href="{{ route('admin.plots.index') }}" class="btn btn-sm btn-outline-danger px-12 py-6 radius-8">
 				<iconify-icon icon="material-symbols:filter-alt-off" class="icon"></iconify-icon>
 				Clear
 			</a>
 			@endif
 		</form>
-		<a href="{{ route('admin.plots.create') }}" class="btn btn-primary text-sm btn-sm px-12 py-12 radius-8 d-flex align-items-center gap-2">
-			<iconify-icon icon="ic:baseline-plus" class="icon text-xl line-height-1"></iconify-icon>
-			Add New Plot
-		</a>
 	</div>
 	<div class="card-body p-24">
 		<div class="table-responsive scroll-sm">
@@ -158,6 +145,15 @@
 	</div>
 </div>
 @endsection
+
+@push('styles')
+<style>
+	.filter-id-input { width: 130px; }
+	@media (max-width: 575.98px) {
+		.filter-id-input { width: 100%; flex: 1 1 100%; }
+	}
+</style>
+@endpush
 
 @push('scripts')
 @endpush

@@ -16,6 +16,11 @@ class PlotController extends Controller
     {
         $query = Plot::query();
 
+        // Plot No filter
+        if ($request->filled('plot_no')) {
+            $query->where('plot_no', 'like', '%' . $request->plot_no . '%');
+        }
+
         // Search filter
         if ($request->filled('search')) {
             $search = $request->search;

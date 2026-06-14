@@ -25,7 +25,24 @@ class BookingController extends Controller
     public function index(Request $request)
     {
         $query = Booking::with(['plot', 'user', 'agent'])->withCount('payments')->latest();
-        
+
+        // Booking ID filter
+        if ($request->filled('booking_id')) {
+            $query->where('id', (int) preg_replace('/\D/', '', $request->booking_id));
+        }
+
+        // Client ID filter (accepts "CID-00003" or plain "3")
+        if ($request->filled('client_id')) {
+            $clientId = (int) preg_replace('/\D/', '', $request->client_id);
+            $query->whereHas('user', fn($q) => $q->where('client_id', $clientId));
+        }
+
+        // Plot No filter
+        if ($request->filled('plot_no')) {
+            $plotNo = $request->plot_no;
+            $query->whereHas('plot', fn($q) => $q->where('plot_no', 'like', '%' . $plotNo . '%'));
+        }
+
         // Search filter
         if ($request->search) {
             $search = $request->search;
@@ -75,8 +92,22 @@ class BookingController extends Controller
     public function export(Request $request)
     {
         $query = Booking::with(['plot', 'user', 'agent', 'payments'])->latest();
-        
+
         // Apply same filters as index method
+        if ($request->filled('booking_id')) {
+            $query->where('id', (int) preg_replace('/\D/', '', $request->booking_id));
+        }
+
+        if ($request->filled('client_id')) {
+            $clientId = (int) preg_replace('/\D/', '', $request->client_id);
+            $query->whereHas('user', fn($q) => $q->where('client_id', $clientId));
+        }
+
+        if ($request->filled('plot_no')) {
+            $plotNo = $request->plot_no;
+            $query->whereHas('plot', fn($q) => $q->where('plot_no', 'like', '%' . $plotNo . '%'));
+        }
+
         if ($request->search) {
             $search = $request->search;
             $searchClientId = null;

@@ -79,6 +79,23 @@ class PaymentController extends Controller
     {
         $query = Payment::with(['booking.plot', 'booking.user'])->latest();
 
+        // Payment ID filter
+        if ($request->filled('payment_id')) {
+            $query->where('id', (int) preg_replace('/\D/', '', $request->payment_id));
+        }
+
+        // Client ID filter (accepts "CID-00003" or plain "3")
+        if ($request->filled('client_id')) {
+            $clientId = (int) preg_replace('/\D/', '', $request->client_id);
+            $query->whereHas('booking.user', fn($q) => $q->where('client_id', $clientId));
+        }
+
+        // Plot No filter
+        if ($request->filled('plot_no')) {
+            $plotNo = $request->plot_no;
+            $query->whereHas('booking.plot', fn($q) => $q->where('plot_no', 'like', '%' . $plotNo . '%'));
+        }
+
         // Search filter
         if ($request->search) {
             $search = $request->search;
@@ -129,6 +146,20 @@ class PaymentController extends Controller
     public function export(Request $request)
     {
         $query = Payment::with(['booking.plot', 'booking.user'])->latest();
+
+        if ($request->filled('payment_id')) {
+            $query->where('id', (int) preg_replace('/\D/', '', $request->payment_id));
+        }
+
+        if ($request->filled('client_id')) {
+            $clientId = (int) preg_replace('/\D/', '', $request->client_id);
+            $query->whereHas('booking.user', fn($q) => $q->where('client_id', $clientId));
+        }
+
+        if ($request->filled('plot_no')) {
+            $plotNo = $request->plot_no;
+            $query->whereHas('booking.plot', fn($q) => $q->where('plot_no', 'like', '%' . $plotNo . '%'));
+        }
 
         if ($request->search) {
             $search = $request->search;
