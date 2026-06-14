@@ -185,27 +185,18 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     
     // Platform Settings
     Route::middleware('permission:manage_settings')->group(function () {
-        Route::get('/settings', [App\Http\Controllers\Admin\SettingController::class, 'index'])
-            ->middleware('permission:manage_settings,view')->name('settings.index');
-        Route::put('/settings/email', [App\Http\Controllers\Admin\SettingController::class, 'updateEmail'])
-            ->middleware('permission:manage_settings,edit')->name('settings.update-email');
-        Route::post('/settings/email/test', [App\Http\Controllers\Admin\SettingController::class, 'testEmail'])
-            ->middleware('permission:manage_settings,edit')->name('settings.test-email');
-        Route::put('/settings/platform', [App\Http\Controllers\Admin\SettingController::class, 'updatePlatform'])
-            ->middleware('permission:manage_settings,edit')->name('settings.update-platform');
-        Route::put('/settings/contact', [App\Http\Controllers\Admin\SettingController::class, 'updateContact'])
-            ->middleware('permission:manage_settings,edit')->name('settings.update-contact');
+        Route::get('/settings', [App\Http\Controllers\Admin\SettingController::class, 'index'])->name('settings.index');
+        Route::put('/settings/email', [App\Http\Controllers\Admin\SettingController::class, 'updateEmail'])->name('settings.update-email');
+        Route::post('/settings/email/test', [App\Http\Controllers\Admin\SettingController::class, 'testEmail'])->name('settings.test-email');
+        Route::put('/settings/platform', [App\Http\Controllers\Admin\SettingController::class, 'updatePlatform'])->name('settings.update-platform');
+        Route::put('/settings/contact', [App\Http\Controllers\Admin\SettingController::class, 'updateContact'])->name('settings.update-contact');
 
         // Platform User Management
-        Route::resource('platform-users', PlatformUserController::class)->except(['show'])
-            ->middlewareFor('index', 'permission:manage_settings,view')
-            ->middlewareFor(['create', 'store'], 'permission:manage_settings,add')
-            ->middlewareFor(['edit', 'update'], 'permission:manage_settings,edit')
-            ->middlewareFor('destroy', 'permission:manage_settings,delete');
+        Route::resource('platform-users', PlatformUserController::class)->except(['show']);
     });
 
-    // Reports (read-only — gated by the view action)
-    Route::middleware(['permission:manage_reports', 'permission:manage_reports,view'])->group(function () {
+    // Reports (simple access toggle — no granular actions)
+    Route::middleware('permission:manage_reports')->group(function () {
         Route::get('reports/plots', [App\Http\Controllers\Admin\ReportController::class, 'plotsFilter'])->name('reports.plots');
         Route::get('reports/plots/generate', [App\Http\Controllers\Admin\ReportController::class, 'plotsReport'])->name('reports.plots.generate');
         Route::get('reports/bookings', [App\Http\Controllers\Admin\ReportController::class, 'bookingsFilter'])->name('reports.bookings');

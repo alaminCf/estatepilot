@@ -108,6 +108,15 @@ class User extends Authenticatable
     ];
 
     /**
+     * Modules that are a simple access toggle (no View/Add/Edit/Delete actions).
+     * Holding the bare module key grants full access to the section.
+     */
+    public const SIMPLE_PERMISSIONS = [
+        'manage_reports',
+        'manage_settings',
+    ];
+
+    /**
      * Every assignable "module.action" permission key.
      *
      * @return list<string>
@@ -117,6 +126,12 @@ class User extends Authenticatable
         $all = [];
 
         foreach (array_keys(self::PERMISSIONS) as $module) {
+            // Simple modules are a single access toggle (bare module key).
+            if (in_array($module, self::SIMPLE_PERMISSIONS, true)) {
+                $all[] = $module;
+                continue;
+            }
+
             foreach (array_keys(self::PERMISSION_ACTIONS) as $action) {
                 $all[] = "{$module}.{$action}";
             }
@@ -190,9 +205,15 @@ class User extends Authenticatable
             [$module, $action] = array_pad(explode('.', $permission, 2), 2, null);
 
             $moduleLabel = self::PERMISSIONS[$module] ?? $module;
-            $actionLabel = $action ? (self::PERMISSION_ACTIONS[$action] ?? $action) : 'All';
 
-            $grouped[$moduleLabel][] = $actionLabel;
+            if (!isset($grouped[$moduleLabel])) {
+                $grouped[$moduleLabel] = [];
+            }
+
+            // Simple modules have no action; keep an empty action list.
+            if ($action !== null) {
+                $grouped[$moduleLabel][] = self::PERMISSION_ACTIONS[$action] ?? $action;
+            }
         }
 
         return $grouped;

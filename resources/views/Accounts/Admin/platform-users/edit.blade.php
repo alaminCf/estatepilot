@@ -145,15 +145,36 @@
 											</thead>
 											<tbody>
 												@foreach($permissions as $moduleKey => $moduleLabel)
+											@php $isSimple = in_array($moduleKey, \App\Models\User::SIMPLE_PERMISSIONS, true); @endphp
 												<tr class="border-top">
 													<td class="ps-16">
+														@if($isSimple)
+														<label class="form-check-label fw-medium text-secondary-light text-sm" for="simple_{{ $moduleKey }}">
+															{{ \Illuminate\Support\Str::after($moduleLabel, 'Manage ') }}
+														</label>
+														@else
 														<div class="form-check d-flex align-items-center gap-8 m-0">
 															<input class="form-check-input perm-row-all flex-shrink-0" type="checkbox" data-module="{{ $moduleKey }}" id="row_{{ $moduleKey }}">
 															<label class="form-check-label fw-medium text-secondary-light text-sm" for="row_{{ $moduleKey }}">
 																{{ \Illuminate\Support\Str::after($moduleLabel, 'Manage ') }}
 															</label>
 														</div>
+														@endif
 													</td>
+													@if($isSimple)
+													<td class="text-center" colspan="{{ count($actions) }}">
+														<div class="form-check d-flex align-items-center justify-content-center gap-8 m-0">
+															<input class="form-check-input perm-check"
+																type="checkbox"
+																name="permissions[]"
+																value="{{ $moduleKey }}"
+																id="simple_{{ $moduleKey }}"
+																aria-label="{{ $moduleLabel }} Full Access"
+																{{ in_array($moduleKey, $userPerms) ? 'checked' : '' }}>
+															<label class="form-check-label text-sm text-secondary-light" for="simple_{{ $moduleKey }}">Full Access</label>
+														</div>
+													</td>
+													@else
 													@foreach($actions as $actionKey => $actionLabel)
 													@php $permValue = $moduleKey . '.' . $actionKey; @endphp
 													<td class="text-center">
@@ -167,6 +188,7 @@
 															{{ in_array($permValue, $userPerms) || in_array($moduleKey, $userPerms) ? 'checked' : '' }}>
 													</td>
 													@endforeach
+													@endif
 												</tr>
 												@endforeach
 											</tbody>
