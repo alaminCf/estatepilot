@@ -371,6 +371,9 @@
             <div class="text-xs text-gray-500">
                 <p>This is a computer-generated receipt.</p>
                 <p>Generated on: {{ now()->format('d M Y, h:i A') }}</p>
+                @auth
+                <p class="font-semibold text-gray-700 mt-0.5">Printed by: {{ auth()->user()->name }}@if(auth()->user()->role) ({{ ucfirst(auth()->user()->role) }})@endif</p>
+                @endauth
             </div>
             <div class="text-center text-xs text-gray-500">
                 <p class="font-semibold text-gray-700">Thank you for choosing London Abason</p>
