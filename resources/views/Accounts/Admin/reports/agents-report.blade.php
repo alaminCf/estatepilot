@@ -45,11 +45,11 @@
                 <th>Phone</th>
                 <th>Email</th>
                 <th>Referral Code</th>
-                <th>Commission Rate</th>
                 <th>Total Bookings</th>
                 <th>Approved</th>
                 <th>Pending</th>
                 <th>Booking Value (৳)</th>
+                <th>Commission (৳)</th>
                 <th>Commission Paid (৳)</th>
                 <th>Status</th>
                 <th>Joined</th>
@@ -63,11 +63,11 @@
                 <td>{{ $agent->phone ?? 'N/A' }}</td>
                 <td>{{ $agent->email }}</td>
                 <td>{{ $agent->referral_code ?? '-' }}</td>
-                <td class="text-center">{{ $agent->commission_rate ?? '0' }}%</td>
                 <td class="text-center font-semibold">{{ $agent->total_bookings_count }}</td>
                 <td class="text-center text-green-600">{{ $agent->approved_bookings }}</td>
                 <td class="text-center text-yellow-600">{{ $agent->pending_bookings }}</td>
                 <td class="text-right">{{ format_bd_number($agent->total_booking_value, 0) }}</td>
+                <td class="text-right font-semibold text-green-700">{{ format_bd_number($agent->total_commission, 0) }}</td>
                 <td class="text-right font-semibold text-green-700">{{ format_bd_number($agent->total_earned_commission, 0) }}</td>
                 <td>
                     <span class="badge badge-{{ $agent->status }}">{{ ucfirst($agent->status) }}</span>
@@ -94,15 +94,18 @@
                         <th>Price (৳)</th>
                         <th>Paid (৳)</th>
                         <th>Due (৳)</th>
+                        <th>Commission (৳)</th>
                         <th>Status</th>
                         <th>Date</th>
                     </tr>
                 </thead>
                 <tbody>
+                    @php $commissionService = new \App\Services\CommissionService(); @endphp
                     @foreach($singleAgent->filtered_bookings as $bIndex => $booking)
                     @php
                         $paid = $booking->payments->sum('amount');
                         $due = $booking->price - $paid;
+                        $bookingCommission = $commissionService->chartCommissionForBooking($booking, $singleAgent->id);
                     @endphp
                     <tr>
                         <td>{{ $bIndex + 1 }}</td>
@@ -112,6 +115,7 @@
                         <td class="text-right">{{ format_bd_number($booking->price, 0) }}</td>
                         <td class="text-right">{{ format_bd_number($paid, 0) }}</td>
                         <td class="text-right {{ $due > 0 ? 'text-red-600' : 'text-green-600' }}">{{ format_bd_number($due, 0) }}</td>
+                        <td class="text-right font-semibold text-green-700">{{ format_bd_number($bookingCommission, 0) }}</td>
                         <td><span class="badge badge-{{ $booking->status }}">{{ ucfirst($booking->status) }}</span></td>
                         <td>{{ $booking->created_at->format('d M Y') }}</td>
                     </tr>

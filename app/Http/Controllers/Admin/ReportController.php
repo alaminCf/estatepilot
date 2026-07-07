@@ -9,6 +9,7 @@ use App\Models\Payment;
 use App\Models\Plot;
 use App\Models\User;
 use App\Models\WebsiteSetting;
+use App\Services\CommissionService;
 use Illuminate\Http\Request;
 
 class ReportController extends Controller
@@ -397,12 +398,16 @@ class ReportController extends Controller
 
         $agents = $query->get();
 
+        // Commission earned per user, computed live from the commission chart so
+        // flat-scheme bookings (which never generated ledger rows) also count.
+        $commissionTotals = (new CommissionService())->chartCommissionTotals();
+
         // Apply booking date filter on agent bookings
         $bookingDateFrom = $request->filled('booking_date_from') ? $request->booking_date_from : null;
         $bookingDateTo = $request->filled('booking_date_to') ? $request->booking_date_to : null;
         $clientId = $request->filled('client_id') ? $request->client_id : null;
 
-        $agents->each(function ($agent) use ($bookingDateFrom, $bookingDateTo, $clientId) {
+        $agents->each(function ($agent) use ($bookingDateFrom, $bookingDateTo, $clientId, $commissionTotals) {
             $bookings = $agent->referredBookings;
 
             if ($bookingDateFrom) {
@@ -418,6 +423,7 @@ class ReportController extends Controller
             $agent->filtered_bookings = $bookings;
             $agent->total_booking_value = $bookings->sum('price');
             $agent->total_earned_commission = $agent->commissionPayouts->sum('amount');
+            $agent->total_commission = $commissionTotals[$agent->id] ?? 0;
             $agent->total_bookings_count = $bookings->count();
             $agent->approved_bookings = $bookings->where('status', 'approved')->count();
             $agent->pending_bookings = $bookings->where('status', 'pending')->count();

@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Booking;
 use App\Models\CommissionEarning;
 use App\Models\CommissionPayout;
 use App\Models\Payment;
@@ -228,6 +229,87 @@ class CommissionService
             $eligiblePaid = max(0, $customerPaid - $basePaid);
             $rate = (float) ($booking->agent_commission ?? 0);
             $total += ($eligiblePaid * $rate) / 100;
+        }
+
+        return round($total, 2);
+    }
+
+    /**
+     * Commission earned by every user, computed live from the commission chart
+     * across all qualifying bookings and payments — regardless of whether the
+     * booking was recorded under the flat or hierarchy scheme.
+     *
+     * For every customer payment that maps to a pool, the seller's own share and
+     * each upline's override are distributed per their current commission setting.
+     * This unifies flat-scheme bookings (which never generated ledger rows) with
+     * hierarchy-scheme bookings, so a commission user's earnings reflect their
+     * settings applied to the paid balance.
+     *
+     * @return array<int, float> Map of user_id => total commission earned.
+     */
+    public function chartCommissionTotals(array $statuses = ['approved', 'pre-booked']): array
+    {
+        $totals = [];
+
+        Booking::whereNotNull('referral_agent_id')
+            ->whereIn('status', $statuses)
+            ->with(['seller', 'payments'])
+            ->chunk(200, function ($bookings) use (&$totals) {
+                foreach ($bookings as $booking) {
+                    $seller = $booking->seller;
+
+                    if (! $seller || ! $seller->commission_type) {
+                        continue;
+                    }
+
+                    foreach ($booking->payments as $payment) {
+                        $poolType = $this->poolForPaymentType($payment->payment_type);
+
+                        if (! $poolType) {
+                            continue;
+                        }
+
+                        foreach ($this->computeDistribution($seller, $poolType, (float) $payment->amount) as $row) {
+                            $totals[$row['user_id']] = round(($totals[$row['user_id']] ?? 0) + $row['amount'], 2);
+                        }
+                    }
+                }
+            });
+
+        return $totals;
+    }
+
+    /**
+     * Commission a single user earns from one booking, computed live from the
+     * chart across that booking's pool-mapped payments. Returns 0 for bookings
+     * outside the eligible statuses or without a commission-type seller.
+     */
+    public function chartCommissionForBooking(Booking $booking, int $userId, array $statuses = ['approved', 'pre-booked']): float
+    {
+        if (! in_array($booking->status, $statuses, true)) {
+            return 0.0;
+        }
+
+        $seller = $booking->seller;
+
+        if (! $seller || ! $seller->commission_type) {
+            return 0.0;
+        }
+
+        $total = 0.0;
+
+        foreach ($booking->payments as $payment) {
+            $poolType = $this->poolForPaymentType($payment->payment_type);
+
+            if (! $poolType) {
+                continue;
+            }
+
+            foreach ($this->computeDistribution($seller, $poolType, (float) $payment->amount) as $row) {
+                if ($row['user_id'] === $userId) {
+                    $total += $row['amount'];
+                }
+            }
         }
 
         return round($total, 2);
