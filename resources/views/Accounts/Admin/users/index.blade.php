@@ -3,10 +3,16 @@
 @section('content')
 <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-24">
 	<h6 class="fw-semibold mb-0">All Customers</h6>
-	<a href="{{ route('admin.users.create') }}" class="btn btn-primary text-sm btn-sm px-12 py-12 radius-8 d-flex align-items-center gap-2">
-		<iconify-icon icon="ic:baseline-plus" class="icon text-xl line-height-1"></iconify-icon>
-		Add New User
-	</a>
+	<div class="d-flex align-items-center gap-2">
+		<a href="{{ route('admin.users.export', request()->only(['client_id', 'search', 'status'])) }}" class="btn btn-outline-primary text-sm btn-sm px-12 py-12 radius-8 d-flex align-items-center gap-2">
+			<iconify-icon icon="solar:download-outline" class="icon text-xl line-height-1"></iconify-icon>
+			Download CSV
+		</a>
+		<a href="{{ route('admin.users.create') }}" class="btn btn-primary text-sm btn-sm px-12 py-12 radius-8 d-flex align-items-center gap-2">
+			<iconify-icon icon="ic:baseline-plus" class="icon text-xl line-height-1"></iconify-icon>
+			Add New User
+		</a>
+	</div>
 </div>
 
 <div class="card h-100 p-0 radius-12">

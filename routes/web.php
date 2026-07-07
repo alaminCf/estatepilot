@@ -128,6 +128,8 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
 
     // Users Management
     Route::middleware('permission:manage_customers')->group(function () {
+        Route::get('users/export', [UserController::class, 'export'])
+            ->middleware('permission:manage_customers,view')->name('users.export');
         Route::resource('users', UserController::class)
             ->middlewareFor(['index', 'show'], 'permission:manage_customers,view')
             ->middlewareFor(['create', 'store'], 'permission:manage_customers,add')

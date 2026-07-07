@@ -53,6 +53,86 @@ class UserController extends Controller
     }
 
     /**
+     * Export customers to CSV.
+     */
+    public function export(Request $request)
+    {
+        $query = User::where('role', 'user')->latest();
+
+        // Apply same filters as index method
+        if ($request->filled('client_id')) {
+            $query->where('client_id', (int) preg_replace('/\D/', '', $request->client_id));
+        }
+
+        if ($request->search) {
+            $search = $request->search;
+            $searchClientId = null;
+            if (preg_match('/^CID-0*(\d+)$/i', $search, $m)) {
+                $searchClientId = (int) $m[1];
+            } elseif (is_numeric($search)) {
+                $searchClientId = (int) $search;
+            }
+            $query->where(function($q) use ($search, $searchClientId) {
+                $q->where('name', 'like', '%' . $search . '%')
+                  ->orWhere('email', 'like', '%' . $search . '%')
+                  ->orWhere('phone', 'like', '%' . $search . '%');
+                if ($searchClientId !== null) {
+                    $q->orWhere('client_id', $searchClientId);
+                }
+            });
+        }
+
+        if ($request->status) {
+            $query->where('status', $request->status);
+        }
+
+        $users = $query->get();
+
+        $filename = 'customers_' . now()->format('Y-m-d_His') . '.csv';
+
+        $headers = [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => 'attachment; filename="' . $filename . '"',
+        ];
+
+        $callback = function() use ($users) {
+            $file = fopen('php://output', 'w');
+
+            fputcsv($file, [
+                'Customer ID',
+                'Name',
+                'Email',
+                'Phone',
+                'Father Name',
+                'Mother Name',
+                'NID',
+                'Address',
+                'Status',
+                'Join Date',
+            ]);
+
+            foreach ($users as $user) {
+                fputcsv($file, [
+                    'CID-' . str_pad($user->client_id, 5, '0', STR_PAD_LEFT),
+                    $user->name,
+                    $user->email,
+                    $user->phone ?? 'N/A',
+                    $user->father_name ?? 'N/A',
+                    $user->mother_name ?? 'N/A',
+                    $user->nid ?? 'N/A',
+                    $user->address ?? 'N/A',
+                    ucfirst($user->status),
+                    $user->created_at->format('Y-m-d H:i:s'),
+                ]);
+            }
+
+            fclose($file);
+        };
+
+        return response()->stream($callback, 200, $headers);
+    }
+
+    /**
      * Show the form for creating a new user.
      */
     public function create()
