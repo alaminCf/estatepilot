@@ -1,7 +1,7 @@
 @extends('Accounts.Admin.reports.report-layout')
 
-@section('title', 'Agents Report')
-@section('report-title', 'Agents Report')
+@section('title', 'Commission Report')
+@section('report-title', 'Commission Report')
 
 @section('content')
     <!-- Summary Section -->
@@ -20,7 +20,7 @@
         </div>
     </div>
 
-    <div class="grid grid-cols-3 gap-3 mb-5">
+    <div class="grid grid-cols-4 gap-3 mb-5">
         <div class="summary-box text-center">
             <div class="text-gray-500 text-xs">Total Bookings Referred</div>
             <div class="text-xl font-bold text-gray-800">{{ $summary['total_bookings'] }}</div>
@@ -28,6 +28,10 @@
         <div class="summary-box text-center">
             <div class="text-gray-500 text-xs">Total Booking Value</div>
             <div class="text-lg font-bold text-blue-600">৳{{ format_bd_number($summary['total_booking_value'], 0) }}</div>
+        </div>
+        <div class="summary-box text-center">
+            <div class="text-gray-500 text-xs">Total Commission Value</div>
+            <div class="text-lg font-bold text-green-700">৳{{ format_bd_number($summary['total_commission_value'], 0) }}</div>
         </div>
         <div class="summary-box text-center">
             <div class="text-gray-500 text-xs">Total Commission Paid</div>

@@ -438,6 +438,7 @@ class ReportController extends Controller
             'inactive_agents' => $agents->where('status', '!=', 'active')->count(),
             'total_bookings' => $agents->sum('total_bookings_count'),
             'total_booking_value' => $agents->sum('total_booking_value'),
+            'total_commission_value' => $agents->sum('total_commission'),
             'total_commission_paid' => $agents->sum('total_earned_commission'),
         ];
 
