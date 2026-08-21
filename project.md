@@ -1,5 +1,5 @@
-PROJECT_NAME: London Abason Real Estate Platform
-CLIENT: London Abason Ltd.
+PROJECT_NAME: Estate Pilot Real Estate Platform
+CLIENT: Estate Pilot Ltd.
 DEVELOPER: Arif Arman
 VERSION: 1.0
 PROJECT_TYPE: Web Application (Real Estate Plot Management)

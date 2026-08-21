@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-24">
-	<h6 class="fw-semibold mb-0">London Abason Dashboard</h6>
+	<h6 class="fw-semibold mb-0">{{ site_name() }} Dashboard</h6>
 	<ul class="d-flex align-items-center gap-2">
 		<li class="fw-medium">
 			<a href="{{ route('admin.dashboard') }}" class="d-flex align-items-center gap-1 hover-text-primary">

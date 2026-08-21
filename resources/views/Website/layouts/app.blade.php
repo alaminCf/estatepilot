@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'London Abason - Premium Real Estate Plots')</title>
+    <title>@yield('title', site_name() . ' - ' . site_tagline())</title>
     <link rel="icon" type="image/png" href="{{ asset('assets/icon.png') }}">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -12,9 +12,9 @@
             theme: {
                 extend: {
                     colors: {
-                        primary: '#2A8441',
-                        'primary-dark': '#1f6330',
-                        'primary-light': '#3fa755',
+                        primary: '#09306c',
+                        'primary-dark': '#062047',
+                        'primary-light': '#0d4aa5',
                     }
                 }
             }
@@ -26,7 +26,7 @@
             font-family: 'Inter', sans-serif;
         }
         .gradient-overlay {
-            background: linear-gradient(135deg, rgba(42, 132, 65, 0.95) 0%, rgba(31, 99, 48, 0.9) 100%);
+            background: linear-gradient(135deg, rgba(9, 48, 108, 0.95) 0%, rgba(6, 32, 71, 0.9) 100%);
         }
         @keyframes fadeIn {
             from {
@@ -64,7 +64,7 @@
                 <!-- Logo -->
                 <div class="flex-shrink-0">
                     <a href="{{ route('home') }}" class="flex items-center space-x-2">
-                        <img src="{{ asset('assets/logo-w.png') }}" alt="London Abason" style="height: 4.5rem;">
+                        <img src="{{ asset('assets/logo-w.png') }}" alt="{{ site_name() }}" style="height: 4.5rem;">
                     </a>
                 </div>
                 
@@ -138,7 +138,7 @@
                 <!-- Company Info -->
                 <div class="md:col-span-1">
                     <div class="mb-4">
-                        <img src="{{ asset('assets/logo-w.png') }}" alt="London Abason" style="height: 5rem;" class="mb-4">
+                        <img src="{{ asset('assets/logo-w.png') }}" alt="{{ site_name() }}" style="height: 5rem;" class="mb-4">
                     </div>
                     <p class="text-gray-400 mb-4">
                         Building dreams with premium residential and commercial plots in prime locations.
@@ -233,7 +233,7 @@
             <div class="border-t border-gray-800 pt-8 mt-8">
                 <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
                     <p class="text-gray-400 text-sm">
-                        © 2026 London Abason Ltd. All rights reserved. | Developed by <a href="https://techboloy.com/" target="_blank" class="text-primary font-semibold hover:underline">Techboloy</a> <span class="text-red-500">❤️</span>
+                        © 2026 {{ site_legal_name() }} All rights reserved. | Developed by <a href="https://techboloy.com/" target="_blank" class="text-primary font-semibold hover:underline">Techboloy</a> <span class="text-red-500">❤️</span>
                     </p>
                     <div class="flex space-x-6 text-sm">
                         <a href="#" class="hover:text-primary transition">Privacy Policy</a>

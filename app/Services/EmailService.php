@@ -28,8 +28,8 @@ class EmailService
         $contactSettings = WebsiteSetting::getGroup('contact');
 
         $this->fromEmail = $emailSettings['mail_from_email'] ?? config('mail.from.address');
-        $this->fromName = $emailSettings['mail_from_name'] ?? config('mail.from.name', 'London Abason');
-        $this->siteName = WebsiteSetting::get('site_name', 'London Abason');
+        $this->fromName = $emailSettings['mail_from_name'] ?? config('mail.from.name', site_name());
+        $this->siteName = site_name();
         $this->phoneNumber = $contactSettings['phone_primary'] ?? '+880 1322-902986';
         $this->contactEmail = $contactSettings['contact_email'] ?? 'info@londonabd.com';
 

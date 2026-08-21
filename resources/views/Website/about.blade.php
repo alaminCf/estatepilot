@@ -1,6 +1,6 @@
 @extends('Website.layouts.app')
 
-@section('title', 'About Us - London Abason')
+@section('title', 'About Us - ' . site_name())
 
 @section('content')
     <!-- Hero Section -->
@@ -8,7 +8,7 @@
         <!-- Background Image with Overlay -->
         <div class="absolute inset-0 overflow-hidden">
             <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200" 
-                 alt="About London Abason" 
+                 alt="About {{ site_name() }}" 
                  class="w-full h-full object-cover opacity-20">
             <div class="absolute inset-0 bg-gradient-to-r from-gray-900/90 to-gray-800/80"></div>
         </div>
@@ -27,7 +27,7 @@
 
             <!-- Title -->
             <h1 class="text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">
-                About London Abason
+                About {{ site_name() }}
             </h1>
             <div class="w-24 h-1 bg-primary mx-auto"></div>
         </div>
@@ -45,7 +45,7 @@
                         <span class="text-primary">Real Estate</span>
                     </h2>
                     <p class="text-lg text-gray-600 leading-relaxed">
-                        Founded with a vision to provide quality residential plots to aspiring homeowners, London Abason Limited has grown to become one of Bangladesh's most trusted real estate developers.
+                        Founded with a vision to provide quality residential plots to aspiring homeowners, {{ site_legal_name() }} has grown to become one of Bangladesh's most trusted real estate developers.
                     </p>
                     <p class="text-gray-600 leading-relaxed">
                         Our journey began with a simple mission: to make land ownership accessible and transparent for everyone. Over the years, we have successfully delivered hundreds of projects, creating thriving communities across the country.
@@ -76,7 +76,7 @@
                 <div class="relative">
                     <div class="relative rounded-2xl overflow-hidden shadow-2xl">
                         <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800" 
-                             alt="London Abason Office" 
+                             alt="{{ site_name() }} Office" 
                              class="w-full h-[500px] object-cover">
                         <div class="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent"></div>
                     </div>
@@ -302,7 +302,7 @@
                     Ready to Find Your Perfect Plot?
                 </h2>
                 <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-                    Join thousands of happy families who have already secured their dream plots with London Abason Limited.
+                    Join thousands of happy families who have already secured their dream plots with {{ site_legal_name() }}.
                 </p>
                 <div class="flex flex-wrap justify-center gap-4">
                     <a href="{{ route('plots.index') }}" class="bg-primary text-white px-10 py-4 rounded-lg font-bold text-lg hover:bg-primary-dark transition shadow-xl transform hover:scale-105 inline-flex items-center space-x-2">

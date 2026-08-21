@@ -1,6 +1,6 @@
 @extends('Website.layouts.app')
 
-@section('title', $plot->title . ' - London Abason')
+@section('title', $plot->title . ' - ' . site_name())
 
 @section('content')
     <!-- Breadcrumb -->
@@ -639,7 +639,7 @@
                             <label class="flex items-start cursor-pointer group">
                                 <input type="checkbox" name="terms_accepted" id="termsCheckbox" required class="w-5 h-5 text-primary border-gray-300 rounded focus:ring-2 focus:ring-primary mt-0.5 flex-shrink-0">
                                 <span class="ml-3 text-sm text-gray-700 group-hover:text-gray-900">
-                                    I agree to the <a href="#" class="text-primary hover:text-primary-dark font-semibold underline">Terms and Conditions</a> and <a href="#" class="text-primary hover:text-primary-dark font-semibold underline">Privacy Policy</a> of London Abason.
+                                    I agree to the <a href="#" class="text-primary hover:text-primary-dark font-semibold underline">Terms and Conditions</a> and <a href="#" class="text-primary hover:text-primary-dark font-semibold underline">Privacy Policy</a> of {{ site_name() }}.
                                 </span>
                             </label>
                             <p id="termsError" class="text-red-500 text-xs mt-2 hidden">
@@ -675,7 +675,7 @@
                             <i class="fas fa-check-circle text-green-500 text-5xl"></i>
                         </div>
                         <h3 class="text-3xl font-bold text-gray-900 mb-3">Booking Successful!</h3>
-                        <p class="text-gray-600 text-lg mb-2">Thank you for choosing London Abason</p>
+                        <p class="text-gray-600 text-lg mb-2">Thank you for choosing {{ site_name() }}</p>
                         <p class="text-gray-500 text-sm mb-8">Your booking has been submitted successfully. Our team will contact you soon.</p>
                         
                         <div class="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-xl mb-8">

@@ -1,6 +1,6 @@
 @extends('Website.layouts.app')
 
-@section('title', 'FAQ - London Abason')
+@section('title', 'FAQ - ' . site_name())
 
 @section('content')
     <!-- Hero Section -->
@@ -31,7 +31,7 @@
             </h1>
             <div class="w-24 h-1 bg-primary mx-auto mb-6"></div>
             <p class="text-xl text-gray-300 max-w-2xl mx-auto">
-                Find answers to common questions about buying plots with London Abason
+                Find answers to common questions about buying plots with {{ site_name() }}
             </p>
         </div>
     </section>
@@ -224,7 +224,7 @@
     <section class="py-20 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Why Trust London Abason?</h2>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Why Trust {{ site_name() }}?</h2>
                 <p class="text-gray-600 text-lg max-w-2xl mx-auto">
                     We've built our reputation on transparency, reliability, and exceptional service
                 </p>

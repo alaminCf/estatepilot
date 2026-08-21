@@ -1,7 +1,7 @@
 <?php
 
 /*
- * London Abason Ltd. Commission Chart.
+ * Commission Chart.
  *
  * Each customer payment feeds a "pool" (percentage of the payment amount)
  * that is distributed across the seller's upline chain:

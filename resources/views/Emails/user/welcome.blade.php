@@ -1,16 +1,16 @@
 @extends('Emails.layout')
 
-@section('title', 'Welcome to ' . ($siteName ?? 'London Abason'))
+@section('title', 'Welcome to ' . ($siteName ?? site_name()))
 
 @section('content')
-    <h2 style="color: #2A8441; font-size: 22px; font-weight: 700; margin: 0 0 20px;">👋 Welcome, {{ $user->name }}!</h2>
+    <h2 style="color: #09306c; font-size: 22px; font-weight: 700; margin: 0 0 20px;">👋 Welcome, {{ $user->name }}!</h2>
     
     <p style="color: #4b5563; font-size: 15px; margin-bottom: 20px; line-height: 1.7;">
-        Thank you for creating an account with <strong>{{ $siteName ?? 'London Abason' }}</strong>. 
+        Thank you for creating an account with <strong>{{ $siteName ?? site_name() }}</strong>. 
         We're excited to have you on board and look forward to helping you find your perfect plot of land.
     </p>
     
-    <div style="background-color: #d1fae5; color: #065f46; padding: 15px 20px; border-radius: 8px; border-left: 4px solid #2A8441; margin: 25px 0;">
+    <div style="background-color: #dbeafe; color: #09306c; padding: 15px 20px; border-radius: 8px; border-left: 4px solid #09306c; margin: 25px 0;">
         <strong>🎉 Your account has been created successfully!</strong>
     </div>
     
@@ -39,7 +39,7 @@
     
     <!-- What You Can Do -->
     <h3 style="color: #1f2937; font-size: 16px; font-weight: 600; margin: 25px 0 15px;">What You Can Do Now</h3>
-    <div style="background-color: #f0fdf4; padding: 20px; border-radius: 8px; border-left: 4px solid #2A8441;">
+    <div style="background-color: #eff6ff; padding: 20px; border-radius: 8px; border-left: 4px solid #09306c;">
         <ul style="margin: 0; padding-left: 20px; color: #14532d; line-height: 2;">
             <li>Browse our available plots</li>
             <li>Book your preferred plot</li>
@@ -54,7 +54,7 @@
         <tr>
             <td align="center">
                 <a href="{{ route('plots.index') }}" 
-                   style="display: inline-block; background: linear-gradient(135deg, #2A8441 0%, #1f6b33 100%); color: #ffffff; padding: 14px 32px; font-size: 15px; font-weight: 600; text-decoration: none; border-radius: 8px; margin: 5px;">
+                   style="display: inline-block; background: linear-gradient(135deg, #09306c 0%, #062047 100%); color: #ffffff; padding: 14px 32px; font-size: 15px; font-weight: 600; text-decoration: none; border-radius: 8px; margin: 5px;">
                     Browse Plots
                 </a>
                 <a href="{{ route('account.dashboard') }}" 

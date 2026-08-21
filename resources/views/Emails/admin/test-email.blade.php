@@ -1,15 +1,15 @@
 @extends('Emails.layout')
 
-@section('title', 'Test Email - ' . ($siteName ?? 'London Abason'))
+@section('title', 'Test Email - ' . ($siteName ?? site_name()))
 
 @section('content')
-    <h2 style="color: #2A8441; font-size: 22px; font-weight: 700; margin: 0 0 20px;">✉️ Test Email</h2>
+    <h2 style="color: #09306c; font-size: 22px; font-weight: 700; margin: 0 0 20px;">✉️ Test Email</h2>
     
     <p style="color: #4b5563; font-size: 15px; margin-bottom: 20px; line-height: 1.7;">
-        This is a test email from <strong>{{ $siteName ?? 'London Abason' }}</strong> email system.
+        This is a test email from <strong>{{ $siteName ?? site_name() }}</strong> email system.
     </p>
     
-    <div style="background-color: #d1fae5; color: #065f46; padding: 15px 20px; border-radius: 8px; border-left: 4px solid #2A8441; margin: 25px 0;">
+    <div style="background-color: #dbeafe; color: #09306c; padding: 15px 20px; border-radius: 8px; border-left: 4px solid #09306c; margin: 25px 0;">
         <strong>✅ Congratulations!</strong> Your email configuration is working properly.
     </div>
     
@@ -36,10 +36,10 @@
         </tr>
     </table>
     
-    <div style="background-color: #f0fdf4; padding: 20px; border-radius: 8px; border-left: 4px solid #2A8441; margin: 25px 0;">
+    <div style="background-color: #eff6ff; padding: 20px; border-radius: 8px; border-left: 4px solid #09306c; margin: 25px 0;">
         <p style="margin: 0; color: #14532d; font-size: 14px; line-height: 1.7;">
             <strong>What this means:</strong><br>
-            If you're reading this email, it means your SMTP configuration is correct and emails are being sent successfully from your London Abason platform.
+            If you're reading this email, it means your SMTP configuration is correct and emails are being sent successfully from your {{ site_name() }} platform.
         </p>
     </div>
     

@@ -192,6 +192,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
         Route::post('/settings/email/test', [App\Http\Controllers\Admin\SettingController::class, 'testEmail'])->name('settings.test-email');
         Route::put('/settings/platform', [App\Http\Controllers\Admin\SettingController::class, 'updatePlatform'])->name('settings.update-platform');
         Route::put('/settings/contact', [App\Http\Controllers\Admin\SettingController::class, 'updateContact'])->name('settings.update-contact');
+        Route::put('/settings/branding', [App\Http\Controllers\Admin\SettingController::class, 'updateBranding'])->name('settings.update-branding');
 
         // Platform User Management
         Route::resource('platform-users', PlatformUserController::class)->except(['show']);

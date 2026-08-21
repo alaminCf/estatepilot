@@ -1,6 +1,6 @@
 @extends('Website.layouts.app')
 
-@section('title', 'Browse Plots - London Abason')
+@section('title', 'Browse Plots - ' . site_name())
 
 @push('styles')
 <style>

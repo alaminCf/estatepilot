@@ -1,6 +1,6 @@
 @extends('Website.layouts.app')
 
-@section('title', 'London Abason - Premium Real Estate Plots')
+@section('title', site_name() . ' - ' . site_tagline())
 
 @section('content')
     <!-- Hero Section -->
@@ -20,19 +20,19 @@
                 <div class="text-white space-y-6">
                     <div class="inline-block">
                         <span class="bg-white/10 backdrop-blur-sm text-white px-4 py-2 rounded-full text-sm font-medium border border-white/20">
-                            Welcome to London Abason
+                            Welcome to {{ site_name() }}
                         </span>
                     </div>
                     
                     <h1 class="text-5xl md:text-6xl font-bold leading-tight">
                         Build Your Dream Home
-                        <span class="text-primary">
+                        <!-- <span class="text-primary"> -->
                             Near Dhaka
-                        </span>
+                        <!-- </span> -->
                     </h1>
                     
                     <p class="text-xl text-gray-200 leading-relaxed">
-                        London Abason Limited offers strategically located residential plots with organized infrastructure, proper road access, and long-term development potential.
+                        {{ site_legal_name() }} offers strategically located residential plots with organized infrastructure, proper road access, and long-term development potential.
                     </p>
 
                     <!-- CTA Buttons -->
@@ -329,7 +329,7 @@
         </div>
     </section>
 
-    <!-- About London Abason Section -->
+    <!-- About Section -->
     <section id="about" class="py-20 bg-white" style="margin-bottom: 30px;">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid md:grid-cols-2 gap-20 items-center">
@@ -337,7 +337,7 @@
                 <div class="relative">
                     <div class="relative rounded-2xl overflow-hidden shadow-2xl">
                         <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800" 
-                             alt="London Abason Office" 
+                             alt="{{ site_name() }} Office" 
                              class="w-full h-[600px] object-cover">
                         <div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent"></div>
                         <div class="absolute bottom-0 left-0 right-0 p-8 text-white">
@@ -376,7 +376,7 @@
                         <span class="text-primary">Creating Communities</span>
                     </h2>
                     <p class="text-lg text-gray-600 leading-relaxed">
-                        London Abason Limited is a trusted name in Bangladesh's real estate sector, 
+                        {{ site_legal_name() }} is a trusted name in Bangladesh's real estate sector, 
                         dedicated to providing premium residential and commercial plots in strategically planned locations.
                     </p>
                     <p class="text-gray-600 leading-relaxed">

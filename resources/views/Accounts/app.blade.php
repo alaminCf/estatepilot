@@ -1,11 +1,11 @@
 <!-- meta tags and other links -->
 <!DOCTYPE html>
-<html lang="en" data-theme="light" style="--primary-600: #16a34a;">
+<html lang="en" data-theme="light" style="--primary-600: #09306c; --primary-700: #072551; --primary-800: #062047;">
 
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>London Abason - {{ ucfirst(Auth::user()->role) }} Dashboard</title>
+	<title>{{ site_name() }} - {{ ucfirst(Auth::user()->role) }} Dashboard</title>
 	<link rel="icon" type="image/png" href="{{ asset('assets/icon.png') }}" sizes="16x16">
 	<!-- remix icon font css  -->
 	<link rel="stylesheet" href="{{ asset('wowdash/assets/css/remixicon.css') }}">
@@ -58,9 +58,9 @@
 		</button>
 		<div>
 			<a href="{{ route(Auth::user()->role . '.dashboard') }}" class="sidebar-logo">
-				<img src="{{ asset('assets/logo-w.png') }}" alt="London Abason" class="light-logo" style="max-height: 80px;">
-				<img src="{{ asset('assets/logo-w.png') }}" alt="London Abason" class="dark-logo" style="max-height: 80px;">
-				<img src="{{ asset('assets/logo.png') }}" alt="London Abason" class="logo-icon" style="max-height: 40px;">
+				<img src="{{ asset('assets/logo-w.png') }}" alt="{{ site_name() }}" class="light-logo" style="max-height: 80px;">
+				<img src="{{ asset('assets/logo-w.png') }}" alt="{{ site_name() }}" class="dark-logo" style="max-height: 80px;">
+				<img src="{{ asset('assets/logo.png') }}" alt="{{ site_name() }}" class="logo-icon" style="max-height: 40px;">
 			</a>
 		</div>
 		<div class="sidebar-menu-area">
@@ -334,7 +334,7 @@
 					a.href = item.href;
 					a.textContent = item.label;
 					a.style.cssText = 'display:block;padding:9px 16px;color:var(--text-primary-light,#111827);font-size:.875rem;text-decoration:none;transition:background .15s;';
-					a.addEventListener('mouseenter', function () { this.style.background = 'var(--primary-50,#f0fdf4)'; this.style.color = 'var(--primary-600,#16a34a)'; });
+					a.addEventListener('mouseenter', function () { this.style.background = 'var(--primary-50,#eff6ff)'; this.style.color = 'var(--primary-600,#09306c)'; });
 					a.addEventListener('mouseleave', function () { this.style.background = ''; this.style.color = 'var(--text-primary-light,#111827)'; });
 					li.appendChild(a);
 					results.appendChild(li);

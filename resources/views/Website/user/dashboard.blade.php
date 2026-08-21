@@ -1,6 +1,6 @@
 @extends('Website.user.layouts.account')
 
-@section('title', 'My Bookings - London Abason')
+@section('title', 'My Bookings - ' . site_name())
 
 @section('account_content')
     <!-- Page Header -->

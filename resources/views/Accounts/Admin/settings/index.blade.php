@@ -46,6 +46,80 @@
 @endif
 
 <div class="row gy-4">
+    <!-- Branding Settings Card -->
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <h6 class="text-lg mb-0 d-flex align-items-center">
+                    <iconify-icon icon="solar:crown-outline" class="me-8 text-xl text-primary-600"></iconify-icon>
+                    Branding
+                </h6>
+            </div>
+            <div class="card-body p-24">
+                <form action="{{ route('admin.settings.update-branding') }}" method="POST">
+                    @csrf
+                    @method('PUT')
+
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-4">
+                            <div class="mb-20">
+                                <label for="site_name" class="form-label fw-semibold text-primary-light text-sm mb-8">
+                                    Brand Name <span class="text-danger-600">*</span>
+                                </label>
+                                <input type="text" class="form-control radius-8 @error('site_name') is-invalid @enderror"
+                                       id="site_name" name="site_name"
+                                       value="{{ old('site_name', $brandingSettings['site_name'] ?? site_name()) }}"
+                                       placeholder="Estate Pilot">
+                                @error('site_name')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                                <small class="text-secondary-light">Shown across the website, dashboards, emails and SMS</small>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 col-lg-4">
+                            <div class="mb-20">
+                                <label for="site_legal_name" class="form-label fw-semibold text-primary-light text-sm mb-8">
+                                    Legal Name
+                                </label>
+                                <input type="text" class="form-control radius-8 @error('site_legal_name') is-invalid @enderror"
+                                       id="site_legal_name" name="site_legal_name"
+                                       value="{{ old('site_legal_name', $brandingSettings['site_legal_name'] ?? '') }}"
+                                       placeholder="Estate Pilot Ltd.">
+                                @error('site_legal_name')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                                <small class="text-secondary-light">Used on invoices, receipts and footers. Leave blank to use the brand name</small>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 col-lg-4">
+                            <div class="mb-20">
+                                <label for="site_tagline" class="form-label fw-semibold text-primary-light text-sm mb-8">
+                                    Tagline
+                                </label>
+                                <input type="text" class="form-control radius-8 @error('site_tagline') is-invalid @enderror"
+                                       id="site_tagline" name="site_tagline"
+                                       value="{{ old('site_tagline', $brandingSettings['site_tagline'] ?? '') }}"
+                                       placeholder="Premium Real Estate Plots">
+                                @error('site_tagline')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                                <small class="text-secondary-light">Appended to the browser page title on the homepage</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-center justify-content-end gap-3">
+                        <button type="submit" class="btn btn-primary border border-primary-600 text-md px-24 py-12 radius-8">
+                            Save Branding
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <!-- Email Settings Card -->
     <div class="col-lg-12">
         <div class="card">
@@ -74,8 +148,8 @@
                                 </label>
                                 <input type="text" class="form-control radius-8 @error('mail_from_name') is-invalid @enderror" 
                                        id="mail_from_name" name="mail_from_name" 
-                                       value="{{ old('mail_from_name', $emailSettings['mail_from_name'] ?? 'London Abason') }}" 
-                                       placeholder="London Abason">
+                                       value="{{ old('mail_from_name', $emailSettings['mail_from_name'] ?? site_name()) }}" 
+                                       placeholder="{{ site_name() }}">
                                 @error('mail_from_name')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror

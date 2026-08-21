@@ -1,6 +1,13 @@
+# Always boot Laravel for "/" — never let a stray index.html win the
+# directory index, which is what silently pinned the site to the
+# "Under Maintenance" page. Use `php artisan down` for real maintenance.
+<IfModule mod_dir.c>
+    DirectoryIndex index.php index.html
+</IfModule>
+
 <IfModule mod_rewrite.c>
     RewriteEngine On
-    
+
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]

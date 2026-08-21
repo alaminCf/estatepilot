@@ -1,6 +1,6 @@
 @extends('Website.layouts.app')
 
-@section('title', 'My Account - London Abason')
+@section('title', 'My Account - ' . site_name())
 
 @section('content')
     <!-- Account Container -->

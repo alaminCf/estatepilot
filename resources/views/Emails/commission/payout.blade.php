@@ -1,16 +1,16 @@
 @extends('Emails.layout')
 
-@section('title', 'Commission Payout Received - ' . ($siteName ?? 'London Abason'))
+@section('title', 'Commission Payout Received - ' . ($siteName ?? site_name()))
 
 @section('content')
-    <h2 style="color: #2A8441; font-size: 22px; font-weight: 700; margin: 0 0 20px;">🎉 Commission Payout Received</h2>
+    <h2 style="color: #09306c; font-size: 22px; font-weight: 700; margin: 0 0 20px;">🎉 Commission Payout Received</h2>
 
     <p style="color: #4b5563; font-size: 15px; margin-bottom: 20px; line-height: 1.7;">
         Dear <strong>{{ $user->name }}</strong>,<br>
-        Great news! Your commission payout has been processed. Thank you for your continued partnership with {{ $siteName ?? 'London Abason' }}.
+        Great news! Your commission payout has been processed. Thank you for your continued partnership with {{ $siteName ?? site_name() }}.
     </p>
 
-    <div style="background-color: #d1fae5; color: #065f46; padding: 15px 20px; border-radius: 8px; border-left: 4px solid #2A8441; margin: 25px 0;">
+    <div style="background-color: #dbeafe; color: #09306c; padding: 15px 20px; border-radius: 8px; border-left: 4px solid #09306c; margin: 25px 0;">
         <strong>✅ Commission Payout Confirmed!</strong> Your commission has been recorded and disbursed.
     </div>
 
@@ -20,7 +20,7 @@
         <tr>
             <td style="padding: 15px; border-bottom: 1px solid #e5e7eb;">
                 <span style="color: #6b7280; font-size: 12px; text-transform: uppercase;">Receipt ID</span><br>
-                <span style="color: #2A8441; font-size: 15px; font-weight: 700;">#{{ str_pad($payout->id, 6, '0', STR_PAD_LEFT) }}</span>
+                <span style="color: #09306c; font-size: 15px; font-weight: 700;">#{{ str_pad($payout->id, 6, '0', STR_PAD_LEFT) }}</span>
             </td>
         </tr>
         <tr>
@@ -54,11 +54,11 @@
     </table>
 
     <!-- Invoice Link Banner -->
-    <div style="background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); border: 1px solid #86efac; border-radius: 10px; padding: 20px; margin: 25px 0; text-align: center;">
+    <div style="background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); border: 1px solid #86efac; border-radius: 10px; padding: 20px; margin: 25px 0; text-align: center;">
         <p style="color: #15803d; font-size: 14px; font-weight: 600; margin: 0 0 12px;">📄 Your Commission Invoice is Ready</p>
         <p style="color: #4b5563; font-size: 13px; margin: 0 0 15px;">View and download your official commission receipt for your records.</p>
         <a href="{{ route('commission.payouts.invoice', $payout->id) }}"
-           style="display: inline-block; background: linear-gradient(135deg, #2A8441 0%, #1f6b33 100%); color: #ffffff; padding: 12px 28px; font-size: 14px; font-weight: 700; text-decoration: none; border-radius: 8px; letter-spacing: 0.5px;">
+           style="display: inline-block; background: linear-gradient(135deg, #09306c 0%, #062047 100%); color: #ffffff; padding: 12px 28px; font-size: 14px; font-weight: 700; text-decoration: none; border-radius: 8px; letter-spacing: 0.5px;">
             🧾 View Commission Invoice
         </a>
     </div>
@@ -68,7 +68,7 @@
         <tr>
             <td align="center">
                 <a href="{{ route('commission.payouts') }}"
-                   style="display: inline-block; background: linear-gradient(135deg, #2A8441 0%, #1f6b33 100%); color: #ffffff; padding: 14px 32px; font-size: 15px; font-weight: 600; text-decoration: none; border-radius: 8px; margin: 5px;">
+                   style="display: inline-block; background: linear-gradient(135deg, #09306c 0%, #062047 100%); color: #ffffff; padding: 14px 32px; font-size: 15px; font-weight: 600; text-decoration: none; border-radius: 8px; margin: 5px;">
                     View All Payouts
                 </a>
                 <a href="{{ route('commission.earnings') }}"

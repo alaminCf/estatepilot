@@ -1,6 +1,6 @@
 @extends('Website.layouts.app')
 
-@section('title', 'Commission User Panel - London Abason')
+@section('title', 'Commission User Panel - ' . site_name())
 
 @section('content')
     @php

@@ -11,7 +11,7 @@
             theme: {
                 extend: {
                     colors: {
-                        primary: '#2A8441',
+                        primary: '#09306c',
                     }
                 }
             }
@@ -58,10 +58,10 @@
                 <!-- Left: Logo & Company Info -->
                 <div class="flex items-center gap-4">
                     <div class="flex flex-col items-center">
-                        <img src="{{ asset('assets/logo-w.png') }}" alt="London Abason" class="h-14">
+                        <img src="{{ asset('assets/logo-w.png') }}" alt="{{ site_name() }}" class="h-14">
                     </div>
                     <div class="pl-4">
-                        <h2 class="text-base font-bold text-gray-800">London Abason Ltd.</h2>
+                        <h2 class="text-base font-bold text-gray-800">{{ site_legal_name() }}</h2>
                         <p class="text-xs text-gray-600">{{ $invoiceAddress }}</p>
                         <p class="text-xs text-gray-600">{{ $invoicePhone }} | {{ $invoiceEmail }}</p>
                     </div>
@@ -221,7 +221,7 @@
 
             <!-- Footer Note -->
             <div class="border-t border-gray-200 pt-3 mt-4 text-xs text-gray-500 text-center">
-                This is an official commission payout receipt issued by London Abason Ltd.
+                This is an official commission payout receipt issued by {{ site_legal_name() }}
                 Receipt #{{ str_pad($commissionPayout->id, 6, '0', STR_PAD_LEFT) }} | Generated: {{ now()->format('d M Y, h:i A') }}
             </div>
 

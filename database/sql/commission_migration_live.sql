@@ -1,5 +1,5 @@
 -- =====================================================================
--- London Abason — Agents → Commission Users migration (LIVE / phpMyAdmin)
+-- Estate Pilot — Agents → Commission Users migration (LIVE / phpMyAdmin)
 -- Run these statements on the production database.
 -- BACK UP THE DATABASE FIRST.
 -- Safe to run once; do not re-run.

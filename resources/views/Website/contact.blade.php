@@ -1,6 +1,6 @@
 @extends('Website.layouts.app')
 
-@section('title', 'Contact Us - London Abason')
+@section('title', 'Contact Us - ' . site_name())
 
 @section('content')
     <!-- Hero Section -->

@@ -149,7 +149,7 @@ class CommissionPayoutController extends Controller
         if ($user->phone) {
             $smsService = new SmsService();
             $message = "Dear {$user->name}, your commission payout of ৳" . number_format($validated['amount'], 2) .
-                       " has been processed. Thank you! - London Abason Ltd.";
+                       " has been processed. Thank you! - " . site_legal_name();
 
             try {
                 $smsService->send($user->phone, $message);

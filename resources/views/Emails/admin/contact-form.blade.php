@@ -3,7 +3,7 @@
 @section('title', 'New Contact Form Submission')
 
 @section('content')
-    <h2 style="color: #2A8441; font-size: 22px; font-weight: 700; margin: 0 0 20px;">📬 New Contact Form Submission</h2>
+    <h2 style="color: #09306c; font-size: 22px; font-weight: 700; margin: 0 0 20px;">📬 New Contact Form Submission</h2>
     
     <p style="color: #4b5563; font-size: 15px; margin-bottom: 20px;">
         You have received a new message from your website contact form.
@@ -23,13 +23,13 @@
                     <tr>
                         <td style="padding: 10px 0; border-bottom: 1px solid #e5e7eb;">
                             <span style="color: #6b7280; font-size: 13px; text-transform: uppercase;">Email</span><br>
-                            <a href="mailto:{{ $data['email'] ?? '' }}" style="color: #2A8441; font-size: 15px; font-weight: 600; text-decoration: none;">{{ $data['email'] ?? 'N/A' }}</a>
+                            <a href="mailto:{{ $data['email'] ?? '' }}" style="color: #09306c; font-size: 15px; font-weight: 600; text-decoration: none;">{{ $data['email'] ?? 'N/A' }}</a>
                         </td>
                     </tr>
                     <tr>
                         <td style="padding: 10px 0; border-bottom: 1px solid #e5e7eb;">
                             <span style="color: #6b7280; font-size: 13px; text-transform: uppercase;">Phone</span><br>
-                            <a href="tel:{{ $data['phone'] ?? '' }}" style="color: #2A8441; font-size: 15px; font-weight: 600; text-decoration: none;">{{ $data['phone'] ?? 'N/A' }}</a>
+                            <a href="tel:{{ $data['phone'] ?? '' }}" style="color: #09306c; font-size: 15px; font-weight: 600; text-decoration: none;">{{ $data['phone'] ?? 'N/A' }}</a>
                         </td>
                     </tr>
                     <tr>
@@ -56,7 +56,7 @@
     </table>
     
     <!-- Message Box -->
-    <div style="background-color: #f0fdf4; border-left: 4px solid #2A8441; padding: 20px; border-radius: 6px; margin: 20px 0;">
+    <div style="background-color: #eff6ff; border-left: 4px solid #09306c; padding: 20px; border-radius: 6px; margin: 20px 0;">
         <span style="color: #6b7280; font-size: 13px; text-transform: uppercase; display: block; margin-bottom: 10px;">Message</span>
         <p style="color: #14532d; font-size: 15px; margin: 0; white-space: pre-wrap; line-height: 1.7;">{{ $data['message'] ?? 'No message provided.' }}</p>
     </div>
@@ -66,7 +66,7 @@
         <tr>
             <td align="center">
                 <a href="mailto:{{ $data['email'] ?? '' }}?subject=Re: {{ urlencode($subjects[$data['subject'] ?? ''] ?? 'Contact Form') }}" 
-                   style="display: inline-block; background: linear-gradient(135deg, #2A8441 0%, #1f6b33 100%); color: #ffffff; padding: 14px 32px; font-size: 15px; font-weight: 600; text-decoration: none; border-radius: 8px;">
+                   style="display: inline-block; background: linear-gradient(135deg, #09306c 0%, #062047 100%); color: #ffffff; padding: 14px 32px; font-size: 15px; font-weight: 600; text-decoration: none; border-radius: 8px;">
                     Reply to {{ $data['name'] ?? 'Customer' }}
                 </a>
             </td>

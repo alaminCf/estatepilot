@@ -96,7 +96,7 @@ class SmsService
      */
     public function sendOtp(string $phone, string $code, string $email = ''): array
     {
-        $message = "Welcome London Abason Ltd. Your verification code is {$code} for user email: {$email}";
+        $message = "Welcome " . site_legal_name() . " Your verification code is {$code} for user email: {$email}";
         return $this->send($phone, $message, 'T');
     }
 
@@ -123,7 +123,7 @@ class SmsService
      */
     public function sendBookingApproval(string $phone, string $bookingId, string $plotNo): array
     {
-        $message = "Congratulations! Your booking ID #{$bookingId} for plot {$plotNo} has been approved. Thank you for choosing London Abason Ltd.";
+        $message = "Congratulations! Your booking ID #{$bookingId} for plot {$plotNo} has been approved. Thank you for choosing " . site_legal_name();
         return $this->send($phone, $message, 'T');
     }
 

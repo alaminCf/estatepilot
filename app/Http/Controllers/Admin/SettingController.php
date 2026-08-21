@@ -13,11 +13,33 @@ class SettingController extends Controller
      */
     public function index()
     {
+        $brandingSettings = WebsiteSetting::getGroup('branding');
         $platformSettings = WebsiteSetting::getGroup('platform');
         $contactSettings = WebsiteSetting::getGroup('contact');
         $emailSettings = WebsiteSetting::getGroup('email');
-        
-        return view('Accounts.Admin.settings.index', compact('platformSettings', 'contactSettings', 'emailSettings'));
+
+        return view('Accounts.Admin.settings.index', compact('brandingSettings', 'platformSettings', 'contactSettings', 'emailSettings'));
+    }
+
+    /**
+     * Update branding settings.
+     */
+    public function updateBranding(Request $request)
+    {
+        $request->validate([
+            'site_name' => 'required|string|max:100',
+            'site_legal_name' => 'nullable|string|max:150',
+            'site_tagline' => 'nullable|string|max:200',
+        ]);
+
+        WebsiteSetting::setMany([
+            'site_name' => $request->site_name,
+            'site_legal_name' => $request->site_legal_name,
+            'site_tagline' => $request->site_tagline,
+        ], 'branding');
+
+        return redirect()->route('admin.settings.index')
+            ->with('success', 'Branding settings updated successfully!');
     }
 
     /**
@@ -99,10 +121,10 @@ class SettingController extends Controller
                 'mail.mailers.smtp.password' => $emailSettings['smtp_password'] ?? null,
                 'mail.mailers.smtp.encryption' => $emailSettings['smtp_encryption'] ?: null,
                 'mail.from.address' => $emailSettings['mail_from_email'],
-                'mail.from.name' => $emailSettings['mail_from_name'] ?? 'London Abason',
+                'mail.from.name' => $emailSettings['mail_from_name'] ?? site_name(),
             ]);
 
-            $siteName = WebsiteSetting::get('site_name', 'London Abason');
+            $siteName = site_name();
             $phoneNumber = $contactSettings['phone_primary'] ?? '+880 1322-902986';
             $contactEmail = $contactSettings['contact_email'] ?? 'info@londonabd.com';
             
@@ -117,9 +139,9 @@ class SettingController extends Controller
                 'logoUrl' => $logoUrl,
             ];
 
-            \Illuminate\Support\Facades\Mail::send('Emails.admin.test-email', $emailData, function ($message) use ($request) {
+            \Illuminate\Support\Facades\Mail::send('Emails.admin.test-email', $emailData, function ($message) use ($request, $siteName) {
                 $message->to($request->email)
-                        ->subject('Test Email - London Abason Email System');
+                        ->subject('Test Email - ' . $siteName . ' Email System');
             });
 
             return redirect()->route('admin.settings.index')

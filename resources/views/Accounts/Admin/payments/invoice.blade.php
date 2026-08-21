@@ -11,7 +11,7 @@
             theme: {
                 extend: {
                     colors: {
-                        primary: '#2A8441',
+                        primary: '#09306c',
                     }
                 }
             }
@@ -51,10 +51,10 @@
                 <!-- Left: Logo & Company Info -->
                 <div class="flex items-center gap-4">
                     <div class="flex flex-col items-center">
-                        <img src="{{ asset('assets/logo-w.png') }}" alt="London Abason" class="h-14">
+                        <img src="{{ asset('assets/logo-w.png') }}" alt="{{ site_name() }}" class="h-14">
                     </div>
                     <div class="pl-4">
-                        <h2 class="text-base font-bold text-gray-800">London Abason Ltd.</h2>
+                        <h2 class="text-base font-bold text-gray-800">{{ site_legal_name() }}</h2>
                         <p class="text-xs text-gray-600">{{ $invoiceAddress }}</p>
                         <p class="text-xs text-gray-600">{{ $invoicePhone }} | {{ $invoiceEmail }}</p>
                     </div>
@@ -376,7 +376,7 @@
                 @endauth
             </div>
             <div class="text-center text-xs text-gray-500">
-                <p class="font-semibold text-gray-700">Thank you for choosing London Abason</p>
+                <p class="font-semibold text-gray-700">Thank you for choosing {{ site_name() }}</p>
             </div>
             <div class="text-right">
                 <img src="https://api.qrserver.com/v1/create-qr-code/?size=60x60&data={{ urlencode(request()->url()) }}" alt="QR" class="w-12 h-12 inline-block">

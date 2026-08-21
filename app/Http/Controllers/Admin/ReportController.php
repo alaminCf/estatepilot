@@ -22,7 +22,7 @@ class ReportController extends Controller
         $contactSettings = WebsiteSetting::getGroup('contact');
 
         return [
-            'site_name' => WebsiteSetting::get('site_name', 'London Abason Real Estate'),
+            'site_name' => site_name(),
             'site_logo' => WebsiteSetting::get('site_logo', ''),
             'phone' => $contactSettings['phone_primary'] ?? '',
             'email' => $contactSettings['contact_email'] ?? '',
