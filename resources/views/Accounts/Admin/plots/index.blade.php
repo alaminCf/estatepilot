@@ -95,15 +95,9 @@
 								<a href="{{ route('admin.plots.show', $plot->id) }}" class="bg-info-focus text-info-600 bg-hover-info-200 fw-medium w-40-px h-40-px d-flex justify-content-center align-items-center rounded-circle" title="View Details">
 									<iconify-icon icon="mdi:eye" class="menu-icon"></iconify-icon>
 								</a>
-								@if($plot->status === 'available')
 								<a href="{{ route('admin.plots.edit', $plot->id) }}" class="bg-success-focus text-success-600 bg-hover-success-200 fw-medium w-40-px h-40-px d-flex justify-content-center align-items-center rounded-circle" title="Edit">
 									<iconify-icon icon="lucide:edit" class="menu-icon"></iconify-icon>
 								</a>
-								@else
-								<span class="bg-neutral-100 text-neutral-400 fw-medium w-40-px h-40-px d-flex justify-content-center align-items-center rounded-circle" title="Cannot edit: plot is {{ ucfirst($plot->status) }}. Remove bookings first.">
-									<iconify-icon icon="mdi:lock" class="menu-icon"></iconify-icon>
-								</span>
-								@endif
 								@if($plot->status === 'available')
 								<form action="{{ route('admin.plots.destroy', $plot->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Are you sure you want to delete this plot?');">
 									@csrf

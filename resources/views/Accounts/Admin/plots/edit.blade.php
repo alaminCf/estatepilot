@@ -91,8 +91,8 @@
                             </div>
 
                             <div class="col-md-4 mb-20">
-                                <label for="road_no" class="form-label fw-semibold text-primary-light text-sm mb-8">Road No <span class="text-danger-600">*</span></label>
-                                <input type="text" class="form-control radius-8 @error('road_no') is-invalid @enderror" id="road_no" name="road_no" placeholder="e.g., 5" value="{{ old('road_no', $plot->road_no ?? '') }}" required>
+                                <label for="road_no" class="form-label fw-semibold text-primary-light text-sm mb-8">Road No</label>
+                                <input type="text" class="form-control radius-8 @error('road_no') is-invalid @enderror" id="road_no" name="road_no" placeholder="e.g., 5" value="{{ old('road_no', $plot->road_no ?? '') }}">
                                 @error('road_no')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror

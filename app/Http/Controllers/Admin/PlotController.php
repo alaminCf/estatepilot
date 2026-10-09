@@ -63,11 +63,11 @@ class PlotController extends Controller
             'plot_no' => 'required|string|unique:plots,plot_no',
             'size_katha' => 'required|numeric|min:0',
             'block' => 'required|string|max:50',
-            'road_no' => 'required|string|max:50',
+            'road_no' => 'nullable|string',
             'facing' => 'required|string|max:50',
             'agent_name' => 'nullable|string|max:255',
             'plot_category' => 'nullable|string|max:100',
-            'road_width' => 'nullable|string|max:100',
+            'road_width' => 'nullable|string',
             'price' => 'required|numeric|min:0',
             'booking_payment' => 'nullable|numeric|min:0',
             'installment_plan' => 'nullable|in:monthly,quarterly',
@@ -116,10 +116,6 @@ class PlotController extends Controller
      */
     public function edit(Plot $plot)
     {
-        if ($plot->status !== 'available') {
-            return redirect()->route('admin.plots.show', $plot)->with('error', 'Only available plots can be edited. This plot is currently "' . ucfirst($plot->status) . '". Please remove all bookings first.');
-        }
-
         return view('Accounts.Admin.plots.edit', compact('plot'));
     }
 
@@ -128,20 +124,16 @@ class PlotController extends Controller
      */
     public function update(Request $request, Plot $plot)
     {
-        if ($plot->status !== 'available') {
-            return redirect()->route('admin.plots.show', $plot)->with('error', 'Only available plots can be edited. This plot is currently "' . ucfirst($plot->status) . '". Please remove all bookings first.');
-        }
-
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'plot_no' => 'required|string|unique:plots,plot_no,' . $plot->id,
             'size_katha' => 'required|numeric|min:0',
             'block' => 'required|string|max:50',
-            'road_no' => 'required|string|max:50',
+            'road_no' => 'nullable|string',
             'facing' => 'required|string|max:50',
             'agent_name' => 'nullable|string|max:255',
             'plot_category' => 'nullable|string|max:100',
-            'road_width' => 'nullable|string|max:100',
+            'road_width' => 'nullable|string',
             'price' => 'required|numeric|min:0',
             'booking_payment' => 'nullable|numeric|min:0',
             'installment_plan' => 'nullable|in:monthly,quarterly',

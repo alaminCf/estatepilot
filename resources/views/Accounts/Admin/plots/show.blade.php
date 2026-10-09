@@ -287,17 +287,10 @@
         <div class="card mb-24">
             <div class="card-body">
                 <div class="d-flex flex-column gap-12">
-                    @if($plot->status === 'available')
                     <a href="{{ route('admin.plots.edit', $plot->id) }}" class="btn btn-primary w-100">
                         <iconify-icon icon="lucide:edit" class="me-2"></iconify-icon>
                         Edit Plot
                     </a>
-                    @else
-                    <div class="alert alert-warning mb-0 py-8 px-12 text-sm">
-                        <iconify-icon icon="mdi:lock" class="me-1"></iconify-icon>
-                        Plot cannot be edited while status is "{{ ucfirst($plot->status) }}". Remove all bookings first.
-                    </div>
-                    @endif
 
                     @if($bookings->count() === 0)
                     <form action="{{ route('admin.plots.update-status', $plot->id) }}" method="POST">
